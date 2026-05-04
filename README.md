@@ -23,6 +23,8 @@ To switch between Messier/Caldwell/RASC catalog just select the required catalog
 In each catalog and especially in the Caldwell one the name of some objects are painted in orange or red.
 - orange means the object is always low on horizon (by default < 20°)
 - red means, it will never be above your horizon
+
+THe best season to observe each object is written in the thumbnail area. You may also want to filter each catalog by season just clicking of the season button. (here summer-été is selected).
 <img width="1167" height="741" alt="cata_caldwell" src="https://github.com/user-attachments/assets/835fef8c-2600-49b6-8a4c-f3ad95d90d1d" />
 
 you can edit the python file and change those lines according to your location :
