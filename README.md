@@ -32,7 +32,7 @@ you can edit the python file and change those lines according to your location :
 - "LIMIT_IMPOSSIBLE": 0,      # Hauteur max <= 0°
 - "LIMIT_DIFFICILE": 10       # Hauteur max <= 10° 
 
-You can easily translate the script in any langage as all strings are gathered at the top of the script... Meanwhile in french ! For the catalogs of objects, an english version is already available and placed indide a python bloc of comment 
+You can easily translate the script in any langage as all strings are gathered at the top of the script... Meanwhile in french ! For the catalogs of objects, an english version is already available and placed inside a python bloc of comment 
 (between 
 """
 """)
