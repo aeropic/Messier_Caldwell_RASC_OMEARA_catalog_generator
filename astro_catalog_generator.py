@@ -5,6 +5,7 @@
 # https://github.com/aeropic/Messier_Caldwell_RASC_catalog_generator
 # http://www.messier.seds.org/xtra/similar/rasc-ngc.html
 #
+#   V1.1.1 : .tif is partly supported (thumbnail OK, zoom KO)
 #   V1.1 : syntax error in a comment fixed
 #   V1.0 : first release
 #============================================================================
@@ -774,7 +775,7 @@ CATALOGS = {
 # --- SCRIPT ---
 
 def find_image(prefix, obj_id, tech_ref):
-    valid_exts = ('.jpg', '.jpeg', '.png', '.webp')
+    valid_exts = ('.jpg', '.jpeg', '.png', '.webp', '.tif')
     if not os.path.exists(CONFIG["SOURCE_DIR"]): return None
     
     files = [f for f in os.listdir(CONFIG["SOURCE_DIR"]) 
