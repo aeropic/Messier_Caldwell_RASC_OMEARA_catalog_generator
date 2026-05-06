@@ -39,7 +39,7 @@ CONFIG = {
     "SELECTED_CATALOG": "Messier",                #  selected catalog at startup: possible values : "Messier", "Caldwell", "RASC"
     "THUMB_DIR": "thumbnails",                    # name of the thumbnails directory
     "OUTPUT_HTML": "astro_catalog.html",          # name of the HTML page
-    "THUMB_SIZE": 100,                            # size of the square thumbnail on the HTML page (max 200x200)
+    "THUMB_SIZE": 105,                            # size of the square thumbnail on the HTML page (max 200x200)
     "LATITUDE": 43.6,                             # your latitude
     "LIMIT_IMPOSSIBLE": 0,                        # degrees : change here if your horizon is masked
     "LIMIT_DIFFICILE": 20
