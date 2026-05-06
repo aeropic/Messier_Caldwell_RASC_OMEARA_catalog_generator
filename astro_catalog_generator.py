@@ -5,6 +5,7 @@
 # https://github.com/aeropic/Messier_Caldwell_RASC_catalog_generator
 # http://www.messier.seds.org/xtra/similar/rasc-ngc.html
 #
+#   V1.3 : logs in cmd window during thumbnails generation
 #   V1.2 : .tif/tiff  is supported - dedicate view jpg files are created for display
 #   V1.1.1 : .tif is partly supported (thumbnail OK, zoom KO)
 #   V1.1 : syntax error in a comment fixed
@@ -785,6 +786,7 @@ def find_image(prefix, obj_id, tech_ref):
     if tech_ref:
         match = re.search(r"(NGC|IC|Sh2|Mel|WNC|M)\s?(\d+)", tech_ref, re.IGNORECASE)
         if match:
+            
             a_type, a_num = match.group(1), match.group(2)
             pattern = rf"{a_type}\s?{a_num}(?!\d)"
             for filename in files:
@@ -808,6 +810,7 @@ def get_exif_date(path):
     return datetime.fromtimestamp(os.path.getmtime(path)).strftime("%d/%m/%Y %H:%M")
 
 def make_thumbnail(src):
+    
     if not os.path.exists(CONFIG["THUMB_DIR"]): os.makedirs(CONFIG["THUMB_DIR"])
     dest = os.path.join(CONFIG["THUMB_DIR"], f"thumb_{src}")
     
@@ -837,6 +840,7 @@ def make_thumbnail(src):
             size = CONFIG["THUMB_SIZE"]
             img = img.resize((size, size), Image.Resampling.LANCZOS)
             img.save(dest, "JPEG", quality=85)
+            print(src)
             return dest
     except: return src
 
@@ -852,6 +856,11 @@ def generate():
         found_count = 0
         prefix = data_dict["prefix"]
         keys = sorted(data_dict["data"].keys(), key=lambda x: (int(re.sub(r'\D', '', str(x))), str(x)))
+        
+        print(" ")
+        print("==============")
+        print("   " + name)
+        print("==============")
         
         for k in keys:
             info = data_dict["data"][k]
