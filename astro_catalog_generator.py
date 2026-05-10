@@ -5,6 +5,7 @@
 # https://github.com/aeropic/Messier_Caldwell_RASC_catalog_generator
 # http://www.messier.seds.org/xtra/similar/rasc-ngc.html
 #
+#   V1.6 : display size for small object in orange (small means < 2'x2')
 #   V1.5.1 : bug fix in size display
 #   V1.5 : update of RASC objects usual name
 #   V1.4 : image box points on telescopius when no image
@@ -46,7 +47,8 @@ CONFIG = {
     "THUMB_SIZE": 105,                            # size of the square thumbnail on the HTML page (max 200x200)
     "LATITUDE": 43.6,                             # your latitude
     "LIMIT_IMPOSSIBLE": 0,                        # degrees : change here if your horizon is masked
-    "LIMIT_DIFFICILE": 20
+    "LIMIT_DIFFICILE": 20,
+    "LIMIT_SMALL_OBJECT": 120                     # arcseconds ; paint small objects size in orange
 }
 
 LANG = {
@@ -897,7 +899,7 @@ def generate():
         stats[name] = f"{found_count}/{len(data_dict['data'])}"
 
     select_options = "".join([f'<option value="{c}" {"selected" if c == CONFIG["SELECTED_CATALOG"] else ""}>{c}</option>' for c in CATALOGS.keys()])
-
+    limit_small = CONFIG.get("LIMIT_SMALL_OBJECT", 60)
     html_template = f"""<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8">
     <style>
         :root {{ --case-size: {CONFIG["THUMB_SIZE"]}px; }}
@@ -1025,11 +1027,44 @@ def generate():
                 html += `<hr style="border:0; border-top:1px solid #444; margin:8px 0;">`;
             }}
             
+            let s = obj.info[4] || "";
+            let c = "";
+            let q = String.fromCharCode(34); 
+            let threshold = {limit_small}; 
+            
+            let dims = s.split(/[x×]/);
+            let isSmall = dims.length > 0;
+
+            for (let i = 0; i < dims.length; i++) {{
+                let d = dims[i].trim();
+                let tm = 0, ts = 0;
+                
+                let mMatch = d.match(/([0-9.]+)'($|[^'])/);
+                let sMatch = d.match(/([0-9.]+)(?:''|["])/);
+                
+                if (mMatch) tm = parseFloat(mMatch[1]);
+                if (sMatch) ts = parseFloat(sMatch[1]);
+                
+                if (!mMatch && !sMatch) {{
+                    let v = parseFloat(d);
+                    if (!isNaN(v)) tm = v;
+                }}
+
+                let total = (tm * 60) + ts;
+
+                if (total >= threshold || total === 0) {{
+                    isSmall = false;
+                    break;
+                }}
+            }}
+
+            if (isSmall) c = ' style="color:orange;"';
+
             html += `<div><strong>Type:</strong> ${{obj.info[0]}}</div>`;
             html += `<div><strong>Saison:</strong> ${{obj.info[1]}}</div>`;
             html += `<div><strong>Constellation:</strong> ${{obj.info[2]}}</div>`;
             html += `<div><strong>Magnitude:</strong> ${{obj.info[3]}}</div>`;
-            html += `<div><strong>Taille:</strong> ${{obj.info[4]}}</div>`;
+            html += `<div${{c}}><strong>Taille:</strong> ${{s}}</div>`;
             html += `<div><strong>Déclinaison:</strong> ${{obj.info[6]}}°</div>`;
             html += `<div><strong>Élévation Max:</strong> ${{obj.h_max}}°</div>`;
             
@@ -1042,6 +1077,7 @@ def generate():
             if (y + t.offsetHeight > window.innerHeight) y = e.clientY - t.offsetHeight - 15;
             t.style.left = x + 'px'; t.style.top = y + 'px';
         }}
+        
         update();
     </script></body></html>"""
     
