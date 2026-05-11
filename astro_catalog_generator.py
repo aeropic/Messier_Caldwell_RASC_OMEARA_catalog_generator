@@ -1031,8 +1031,9 @@ def generate():
                 const d = document.createElement('div'); d.className = 'case';
                 d.onmousemove = (e) => showT(e, obj);
                 d.onmouseleave = () => t.style.display='none';
-                
-                let content = obj.thumb ? `<img src="${{obj.thumb}}">` : `<div class="empty-info">${{obj.info[0]}}<br>${{obj.info[1]}}</div>`;
+            
+                // thumbnail area text (type and season)
+                let content = obj.thumb ? `<img src="${{obj.thumb}}">` : `<div class="empty-info">${{obj.info[0]}}<br>(${{obj.info[1]}})</div>`;
                 
                 // ---  REDIRECT VIEW POUR TIF OU TIFF ---
                 let clickImg = obj.img;
