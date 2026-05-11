@@ -9,7 +9,8 @@ The script is able to manage files in .jpg, .jpeg, .png, .webp, .tif, .tiff and 
 Place the "astro_catalog_generator.py" script and the "astro_catalog_launcher.bat" file in the same folder where the images are located. Double-click on "astro_catalog_launcher.bat", accept the Windows prompts, and it will automatically collect missing python libraries and it generates an interactive HTML contact sheet. The .bat file, of course, only runs on PC...
 If there are multiple objects in the same image, name the file with both objects (e.g.,NGC4038_NGC4039_antenna.jpg). 
 
-<img width="1478" height="662" alt="cata" src="https://github.com/user-attachments/assets/d9e50693-855b-4af2-8fbc-51fb83841687" />
+<img width="1197" height="683" alt="cata" src="https://github.com/user-attachments/assets/555493b8-a62d-4c7c-a7cb-4fe7dd56d18b" />
+
 
 thumbnails are created and stored into a "thumbnails" folder
 The script includes a mini-catalog, and the object type is indicated below the object number. 
@@ -25,8 +26,14 @@ In each catalog and especially in the Caldwell one the name of some objects are 
 - orange means the object is always low on horizon (by default < 20°)
 - red means, it will never be above your horizon
 
-The best season to observe each object is written in the thumbnail area. You may also want to filter each catalog by season just clicking of the season button. (here summer-été is selected).
-<img width="1167" height="741" alt="cata_caldwell" src="https://github.com/user-attachments/assets/835fef8c-2600-49b6-8a4c-f3ad95d90d1d" />
+The best season to observe each object is written in the thumbnail area. You may also want to filter each catalog by season just clicking of the season menu. (here summer-été is selected).
+<img width="1210" height="659" alt="cata_summer" src="https://github.com/user-attachments/assets/a7deded7-636b-47e4-b196-d956e28ccd0c" />
+
+There is also one menu to sort the objects by direction of the telescope according to your latitude. (My house is North/South with two terrasses one North one South !)
+And the direction of observation is also displayed in the tooltip.
+<img width="841" height="529" alt="cata_north" src="https://github.com/user-attachments/assets/88f843cc-cd34-45a6-be23-8399374cfd7a" />
+
+
 
 To avoid being too disapointed when imaging a too small object, the tooltip displays the size of the object in orange when both dimensions are lower than than 2'
 <img width="375" height="329" alt="smallsize" src="https://github.com/user-attachments/assets/faad9cbd-bcab-4bb8-8c8b-59e4eecda315" />
