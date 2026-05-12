@@ -525,7 +525,7 @@ O_MEARA_DATA = {
     83: [T["G"], S["P"], "Hydre", "7.7", "12'x11'", "Galaxie du Moulinet Austral", -29.9, "NGC 5236"],
     84: [T["NP"], S["P"], "Hydre", "7.3", '25"', "Fantôme de Jupiter", -18.1, "NGC 3242"],
     85: [T["G"], S["P"], "Machine Pneumatique", "10.3", "6'x4'", "Galaxie de la Machine Pneumatique", -31.1, "NGC 2997"],
-    86: [T["NP"], S["P"], "Velas", "9.7", "5'x4'", "Nébuleuse du 8 eclaté", -45.1, "NGC 3132"],
+    86: [T["NP"], S["P"], "Velas", "9.7", "5'x4'", "Galaxie des Voiles", -45.1, "NGC 3132"],
     87: [T["AO"], S["P"], "Centaure", "5.3", "15'", "Amas ouvert", -47.1, "NGC 3766"],
     88: [T["EN"], S["P"], "Centaure", "6.0", "15'", "Nébuleuse de Lambda Centauri", -60.1, "NGC 3576"],
     89: [T["AO"], S["P"], "Croix du Sud", "4.2", "10'", "La Boîte à Bijoux", -60.3, "NGC 4755"],
@@ -549,12 +549,13 @@ O_MEARA_DATA = {
     107: [T["EN"], S["E"], "Cygne", "5.0", "70'x60'", "Nébuleuse de l'Amérique du Nord", 44.3, "NGC 7000"],
     108: [T["EN"], S["E"], "Cygne", "6.0", "30'x25'", "Nébuleuse du Pélican", 44.5, "IC 5070"],
     109: [T["NP"], S["E"], "Céphée", "11.0", '12"', "Nébuleuse de la Goutte de Sang", 59.9, "NGC 40"],
-    # The Secret Deep
     1001: [T["RN"], S["A"], "Cassiopée", "10.1", "8.6'", "vdB 1", 58.7, "vdB 1"],
+    
+    # secret deep
     1002: [T["G"], S["A"], "Sculpteur", "10.4", "8.1'", "Galaxie du Calmar Géant", -33.2, "NGC 134"],
     1003: [T["G"], S["A"], "Poissons", "10.4", "5.2'", "Galaxie du Tourbillon", 5.2, "NGC 488"],
-    1004: [T["AN"], S["A"], "Cassiopée", "7.9", "40'", "Amas ouvert avec nébulosité", 61.8, "NGC 654"],
-    1005: [T["AO"], S["A"], "Cassiopée", "9.1", "57'", "Lund 57 / Loch Ness Cluster", 71.9, "Collinder 463"],
+    1004: [T["AO"], S["A"], "Cassiopée", "7.9", "40'", "Amas ouvert avec nébulosité", 61.8, "NGC 654"],
+    1005: [T["AO"], S["A"], "Cassiopée", "9.1", "57'", "Lund 57 / Loch Ness monster", 71.9, "Collinder 463"],
     1006: [T["AO"], S["A"], "Cassiopée", "4.4", "130'", "Strong Man Cluster", 59.4, "Stock 2"],
     1007: [T["G"], S["A"], "Céto", "10.1", "5.2'", "Galaxie de la Soucoupe", -1.1, "NGC 936"],
     1008: [T["G"], S["A"], "Éridan", "10.6", "2.9'", "Galaxie de la Truffe", -7.5, "NGC 1084"],
@@ -573,7 +574,7 @@ O_MEARA_DATA = {
     1021: [T["AO"], S["H"], "Taureau", "7.0", "17'", "Amas ouvert", 16.5, "NGC 1807"],
     1022: [T["AO"], S["H"], "Taureau", "7.7", "16'", "Amas ouvert", 16.6, "NGC 1817"],
     1023: [T["EN"], S["H"], "Cocher", "10.0", "13'", "Nébuleuse de l'Araignée", 34.4, "IC 417"],
-    1024: [T["N"], S["H"], "Cocher", "8.3", "3'", "La Mouche (avec IC 417)", 34.2, "NGC 1931"],
+    1024: [T["AO"], S["H"], "Cocher", "8.3", "3'", "La Mouche (avec IC 417)", 34.2, "NGC 1931"],
     1025: [T["AO"], S["H"], "Orion", "0.4", "150'", "Ceinture d'Orion", -1.0, "Collinder 70"],
     1026: [T["NP"], S["H"], "Orion", "11.6", "0.5'", "Nébuleuse des Baisers", 9.1, "NGC 2022"],
     1027: [T["NP"], S["H"], "Cocher", "11.5", "0.25'", "Nébuleuse planétaire", 46.1, "IC 2149"],
@@ -584,7 +585,7 @@ O_MEARA_DATA = {
     1032: [T["EN"], S["H"], "Licorne", "10.0", "4'", "Nébuleuse par émission", -7.7, "NGC 2316"],
     1033: [T["AO"], S["H"], "Licorne", "5.5", "7'", "Amas ouvert", -10.6, "NGC 2343"],
     1034: [T["NP"], S["H"], "Licorne", "10.3", "2'", "Nébuleuse du Papillon", -0.8, "NGC 2346"],
-    1035: [T["AO"], S["H"], "Orion", "8.5", "10'", "Amas ouvert", 12.8, "NGC 2194"],
+    1035: [T["EN"], S["H"], "Grand Chien", "10.0", "10'", "Casque de Thor / Canard", -13.2, "NGC 2359"],
     1036: [T["NP"], S["H"], "Gémeaux", "9.1", "2.1'", "Nébuleuse de la Double Bulle", 29.4, "NGC 2371"],
     1037: [T["AO"], S["H"], "Gémeaux", "9.1", "10'", "Amas de la Comète Scintillante", 21.5, "NGC 2420"],
     1038: [T["G"], S["P"], "Grande Ourse", "10.1", "7.6'", "Galaxie du Frisbee Fantôme", 55.6, "NGC 3079"],
@@ -604,7 +605,7 @@ O_MEARA_DATA = {
     1052: [T["AG"], S["P"], "Chevelure de Bérénice", "10.3", "4'", "Amas Kick the Can", 18.5, "NGC 4147"],
     1053: [T["G"], S["P"], "Chevelure de Bérénice", "10.1", "6'", "Galaxie de l'Oeil Noir", 18.3, "NGC 4293"],
     1054: [T["G"], S["P"], "Chevelure de Bérénice", "10.3", "3.6'", "Galaxie en troupeau", 31.2, "NGC 4414"],
-    1055: [T["G"], S["P"], "Vierge", "11.0", "3'", "Arp 120 (avec NGC 4438)", 13.0, "NGC 4435"],
+    1055: [T["G"], S["P"], "Vierge", "11.0", "3'", "Arp 120 (les yeux avec NGC 4438)", 13.0, "NGC 4435"],
     1056: [T["G"], S["P"], "Vierge", "10.1", "9.3'", "Les Yeux (Arp 120)", 13.0, "NGC 4438"],
     1057: [T["G"], S["P"], "Chevelure de Bérénice", "10.1", "4.8'", "Galaxie spirale", 17.0, "NGC 4450"],
     1058: [T["G"], S["P"], "Vierge", "10.3", "3.7'", "Galaxie proche des Yeux", 13.1, "NGC 4461"],
@@ -632,7 +633,7 @@ O_MEARA_DATA = {
     1080: [T["RN"], S["E"], "Sagittaire", "10.0", "5'", "Nébuleuse par réflexion", -19.7, "NGC 6589"],
     1081: [T["RN"], S["E"], "Sagittaire", "10.0", "11'", "Nébuleuse par réflexion", -19.8, "NGC 6595"],
     1082: [T["AG"], S["E"], "Sagittaire", "9.0", "5'", "Amas Globulaire", -25.5, "NGC 6638"],
-    1083: [T["AO"], S["E"], "Écu de Sobieski", "7.2", "16'", "Amas du Traîneau / Théière", -8.2, "NGC 6664"],
+    1083: [T["AO"], S["E"], "Écu de Sobieski", "7.2", "16'", "Amas du Traîneau", -8.2, "NGC 6664"],
     1084: [T["AG"], S["E"], "Sagittaire", "9.1", "3.9'", "Amas Globulaire (Palomar 9)", -22.7, "NGC 6717"],
     1085: [T["NP"], S["E"], "Aigle", "11.5", "0.25'", "Nébuleuse de la Fleur de Pissenlit", -5.9, "NGC 6751"],
     1086: [T["AO"], S["E"], "Aigle", "7.0", "90'", "Amas avec NGC 6756", 4.2, "NGC 6755"],
@@ -658,7 +659,6 @@ O_MEARA_DATA = {
     1106: [T["EN"], S["A"], "Céphée", "10.0", "10'", "Nébuleuse de la Lagune Nord", 61.5, "NGC 7538"],
     1107: [T["AO"], S["A"], "Cassiopée", "8.5", "17'", "Amas avec NGC 7788", 61.2, "NGC 7790"],
 }
-
 
 """
 # --- ENGLISH TRANSLATED DATABASES (MESSIER, CALDWELL, RASC) ---
