@@ -439,6 +439,7 @@ RASC_DATA = {
 }
 
 O_MEARA_DATA = {
+    # hidden treasures
     1: [T["RN"], S["A"], "Céphée", "4.1", "10°", "Nébuleuse de l'iris", 73.1, "NGC 7023"],
     2: [T["AO"], S["A"], "Cassiopée", "4.1", "20'", "Amas de la Rose Rose", 61.3, "NGC 7789"],
     3: [T["G"], S["A"], "Andromède", "9.9", "13'x3'", "Galaxie de la Lame d'Argent", 42.4, "NGC 891"],
@@ -524,7 +525,7 @@ O_MEARA_DATA = {
     83: [T["G"], S["P"], "Hydre", "7.7", "12'x11'", "Galaxie du Moulinet Austral", -29.9, "NGC 5236"],
     84: [T["NP"], S["P"], "Hydre", "7.3", '25"', "Fantôme de Jupiter", -18.1, "NGC 3242"],
     85: [T["G"], S["P"], "Machine Pneumatique", "10.3", "6'x4'", "Galaxie de la Machine Pneumatique", -31.1, "NGC 2997"],
-    86: [T["NP"], S["P"], "Velas", "9.7", "5'x4'", "Galaxie des Voiles", -45.1, "NGC 3132"],
+    86: [T["NP"], S["P"], "Velas", "9.7", "5'x4'", "Nébuleuse du 8 eclaté", -45.1, "NGC 3132"],
     87: [T["AO"], S["P"], "Centaure", "5.3", "15'", "Amas ouvert", -47.1, "NGC 3766"],
     88: [T["EN"], S["P"], "Centaure", "6.0", "15'", "Nébuleuse de Lambda Centauri", -60.1, "NGC 3576"],
     89: [T["AO"], S["P"], "Croix du Sud", "4.2", "10'", "La Boîte à Bijoux", -60.3, "NGC 4755"],
@@ -548,10 +549,11 @@ O_MEARA_DATA = {
     107: [T["EN"], S["E"], "Cygne", "5.0", "70'x60'", "Nébuleuse de l'Amérique du Nord", 44.3, "NGC 7000"],
     108: [T["EN"], S["E"], "Cygne", "6.0", "30'x25'", "Nébuleuse du Pélican", 44.5, "IC 5070"],
     109: [T["NP"], S["E"], "Céphée", "11.0", '12"', "Nébuleuse de la Goutte de Sang", 59.9, "NGC 40"],
+    # The Secret Deep
     1001: [T["RN"], S["A"], "Cassiopée", "10.1", "8.6'", "vdB 1", 58.7, "vdB 1"],
     1002: [T["G"], S["A"], "Sculpteur", "10.4", "8.1'", "Galaxie du Calmar Géant", -33.2, "NGC 134"],
     1003: [T["G"], S["A"], "Poissons", "10.4", "5.2'", "Galaxie du Tourbillon", 5.2, "NGC 488"],
-    1004: [T["AO"], S["A"], "Cassiopée", "7.9", "40'", "Amas ouvert avec nébulosité", 61.8, "NGC 654"],
+    1004: [T["AN"], S["A"], "Cassiopée", "7.9", "40'", "Amas ouvert avec nébulosité", 61.8, "NGC 654"],
     1005: [T["AO"], S["A"], "Cassiopée", "9.1", "57'", "Lund 57 / Loch Ness Cluster", 71.9, "Collinder 463"],
     1006: [T["AO"], S["A"], "Cassiopée", "4.4", "130'", "Strong Man Cluster", 59.4, "Stock 2"],
     1007: [T["G"], S["A"], "Céto", "10.1", "5.2'", "Galaxie de la Soucoupe", -1.1, "NGC 936"],
@@ -559,7 +561,6 @@ O_MEARA_DATA = {
     1009: [T["AO"], S["A"], "Persée", "7.6", "10'", "Amas de l'Étoile de Mer", 47.2, "NGC 1245"],
     1010: [T["G"], S["A"], "Éridan", "10.4", "6.5'", "Galaxie spirale barrée", -19.4, "NGC 1300"],
     1011: [T["AO"], S["H"], "Persée", "8.1", "30'", "Amas de la Raie / Petit Scorpion", 37.3, "NGC 1342"],
-    # LA VOICI ! (n°12 du livre Secret Deep)
     1012: [T["N"], S["H"], "Orion", "10.0", "90'", "La Tête de Cheval (dans Barnard's Loop)", 0.7, "Barnard 33"], 
     1013: [T["G"], S["H"], "Éridan", "10.8", "1.9'", "Galaxie avec NGC 1407", -18.6, "NGC 1400"],
     1014: [T["G"], S["H"], "Éridan", "9.7", "2.5'", "Galaxie avec NGC 1400", -18.5, "NGC 1407"],
@@ -572,7 +573,7 @@ O_MEARA_DATA = {
     1021: [T["AO"], S["H"], "Taureau", "7.0", "17'", "Amas ouvert", 16.5, "NGC 1807"],
     1022: [T["AO"], S["H"], "Taureau", "7.7", "16'", "Amas ouvert", 16.6, "NGC 1817"],
     1023: [T["EN"], S["H"], "Cocher", "10.0", "13'", "Nébuleuse de l'Araignée", 34.4, "IC 417"],
-    1024: [T["AO"], S["H"], "Cocher", "8.3", "3'", "La Mouche (avec IC 417)", 34.2, "NGC 1931"],
+    1024: [T["N"], S["H"], "Cocher", "8.3", "3'", "La Mouche (avec IC 417)", 34.2, "NGC 1931"],
     1025: [T["AO"], S["H"], "Orion", "0.4", "150'", "Ceinture d'Orion", -1.0, "Collinder 70"],
     1026: [T["NP"], S["H"], "Orion", "11.6", "0.5'", "Nébuleuse des Baisers", 9.1, "NGC 2022"],
     1027: [T["NP"], S["H"], "Cocher", "11.5", "0.25'", "Nébuleuse planétaire", 46.1, "IC 2149"],
@@ -583,7 +584,7 @@ O_MEARA_DATA = {
     1032: [T["EN"], S["H"], "Licorne", "10.0", "4'", "Nébuleuse par émission", -7.7, "NGC 2316"],
     1033: [T["AO"], S["H"], "Licorne", "5.5", "7'", "Amas ouvert", -10.6, "NGC 2343"],
     1034: [T["NP"], S["H"], "Licorne", "10.3", "2'", "Nébuleuse du Papillon", -0.8, "NGC 2346"],
-    1035: [T["EN"], S["H"], "Grand Chien", "10.0", "10'", "Casque de Thor / Canard", -13.2, "NGC 2359"],
+    1035: [T["AO"], S["H"], "Orion", "8.5", "10'", "Amas ouvert", 12.8, "NGC 2194"],
     1036: [T["NP"], S["H"], "Gémeaux", "9.1", "2.1'", "Nébuleuse de la Double Bulle", 29.4, "NGC 2371"],
     1037: [T["AO"], S["H"], "Gémeaux", "9.1", "10'", "Amas de la Comète Scintillante", 21.5, "NGC 2420"],
     1038: [T["G"], S["P"], "Grande Ourse", "10.1", "7.6'", "Galaxie du Frisbee Fantôme", 55.6, "NGC 3079"],
@@ -1013,7 +1014,7 @@ CATALOGS = {
     "Messier": {"prefix": "M", "data": MESSIER_DATA},          # the prefix is used in the HTML page
     "Caldwell": {"prefix": "C", "data": CALDWELL_DATA},
     "RASC": {"prefix": "R", "data": RASC_DATA},
-    "O MEARA": {"prefix": "X", "data": O_MEARA_DATA}
+    "O'Meara": {"prefix": "X", "data": O_MEARA_DATA}
 }
 
 # --- SCRIPT ---
@@ -1311,22 +1312,33 @@ def generate():
                         clickImg = thumbDir + "/view_" + baseName + ".jpg";
                     }}
                     
-                    // --- URL TELESCOPIUS management ---
+                    // ---  URL TELESCOPIUS management (RASC/Omeara <==> NGC/IC from database field(tech_ref)) ---
                     let tUrl = "https://telescopius.com/deep-sky-objects/";
+
                     if (obj.prefix === prefixes.Messier) {{
                         tUrl += "m-" + obj.id;
                     }} else if (obj.prefix === prefixes.Caldwell) {{
                         tUrl += "c-" + obj.id;
-                    }} else if (obj.prefix === prefixes.RASC || obj.prefix === prefixes["O MEARA"]) {{
+                    }} else if (obj.prefix === prefixes.RASC || obj.prefix === prefixes["O'Meara"]) {{
+                        
+                        // Extraction spécifique du numéro associé au catalogue pour éviter le "2" de "Sh2"
                         const regex = /(?:NGC|IC|SH2|BARNARD|VDB)[_ \-]?(\d+)/i;
                         const match = obj.tech_ref.match(regex);
                         const idNum = match ? match[1] : ""; 
-                        if (obj.tech_ref.toUpperCase().includes("IC")) tUrl += "ic-" + idNum;
-                        else if (obj.tech_ref.toUpperCase().includes("SH2")) tUrl += "sh2-" + idNum;
-                        else if (obj.tech_ref.toUpperCase().includes("BARNARD")) tUrl += "barnard-" + idNum;
-                        else if (obj.tech_ref.toUpperCase().includes("VDB")) tUrl += "vdb-" + idNum;
-                        else tUrl += "ngc-" + idNum;
+                        
+                        if (obj.tech_ref.toUpperCase().includes("IC")) {{
+                            tUrl += "ic-" + idNum;
+                        }} else if (obj.tech_ref.toUpperCase().includes("SH2")) {{
+                            tUrl += "sh2-" + idNum;
+                        }} else if (obj.tech_ref.toUpperCase().includes("BARNARD")) {{
+                            tUrl += "barnard-" + idNum;
+                        }} else if (obj.tech_ref.toUpperCase().includes("VDB")) {{
+                            tUrl += "vdb-" + idNum;
+                        }} else {{
+                            tUrl += "ngc-" + idNum;
+                        }}
                     }}
+                
                     
                     const labelText = obj.tech_ref ? `${{obj.prefix}}${{obj.id}} - ${{obj.tech_ref}}` : `${{obj.prefix}}${{obj.id}}`;
                     const imgAction = obj.img ? `openM('${{clickImg}}')` : `window.open('${{tUrl}}', '_blank')`;
