@@ -4,7 +4,10 @@
 #  
 # https://github.com/aeropic/Messier_Caldwell_RASC_catalog_generator
 # http://www.messier.seds.org/xtra/similar/rasc-ngc.html
+# https://www.catchersofthelight.com/astrophotography-hidden-treasures-list.aspx
+# https://app.astrobin.com/u/GaryI?collection=677&i=esls3b#gallery
 #
+#   V3.0 : added O'Meara lists (secret deep and hidden treasures)
 #   V2.1 : season is displayed only when all seasons is selected
 #   V2.0 : rolling menus for seasons and direction selection
 #   V1.6 : display size for small object in orange (small means < 2'x2')
@@ -75,6 +78,12 @@ LANG = {
         "RN": "Néb. Réflexion",                              # "reflection nebula "SNR": "Reste Supernova",
         "E/RN": "Néb. Ém./Réf.",                             # " emissin and reflexion nebula"
         "AN": "Amas + Néb."                                  # " Nebula and cluster"
+    },
+    "FAMILIES_LABELS": {
+        "ALL": "Tous objets",
+        "NEB": "Nébuleuses",
+        "GAL": "Galaxies",
+        "CLU": "Amas et divers"
     },
     "SEASONS": {"P": "Printemps", "E": "Été", "A": "Automne", "H": "Hiver"}      # {"P": "Spring", "E": "Summer", "A": "Automn", "H": "Winter"}
 }
@@ -428,6 +437,228 @@ RASC_DATA = {
     109: [T["RN"], S["E"], "Céphée", "-", "8x7'", "Nébuleuse par réflexion", 66.1, "NGC 7129"],
     110: [T["NP"], S["E"], "Céphée", "10.2", "37''", "Nébuleuse du Nœud Coulant", 72.5, "NGC 40"]
 }
+
+O_MEARA_DATA = {
+    1: [T["RN"], S["A"], "Céphée", "4.1", "10°", "Nébuleuse de l'iris", 73.1, "NGC 7023"],
+    2: [T["AO"], S["A"], "Cassiopée", "4.1", "20'", "Amas de la Rose Rose", 61.3, "NGC 7789"],
+    3: [T["G"], S["A"], "Andromède", "9.9", "13'x3'", "Galaxie de la Lame d'Argent", 42.4, "NGC 891"],
+    4: [T["AO"], S["A"], "Cassiopée", "7.4", "13'", "Amas de la Chouette / ET", 58.3, "NGC 457"],
+    5: [T["AO"], S["A"], "Persée", "5.3", "30'", "Amas du Petit scorpion", 57.1, "NGC 744"],
+    6: [T["AO"], S["A"], "Persée", "6.5", "12'", "Amas ouvert", 49.2, "NGC 1245"],
+    7: [T["AO"], S["A"], "Persée", "4.1", "5'", "Amas ouvert", 51.2, "NGC 1528"],
+    8: [T["AO"], S["H"], "Persée", "6.5", "10'", "Amas ouvert", 37.3, "NGC 1545"],
+    9: [T["AO"], S["H"], "Girafe", "6.0", "20'", "Cascade de Kemble / Amas", 63.7, "NGC 1502"],
+    10: [T["AO"], S["H"], "Cocher", "6.0", "12'", "Amas du Sourire", 46.5, "NGC 1893"],
+    11: [T["EN"], S["H"], "Orion", "9.0", "30'x30'", "Nébuleuse de la Tête de Singe", 20.5, "NGC 2174"],
+    12: [T["AO"], S["H"], "Gémeaux", "6.0", "20'", "Amas ouvert", 24.3, "NGC 2158"],
+    13: [T["AN"], S["H"], "Licorne", "6.0", "40'x30'", "Nébuleuse de la Rosette (Amas)", 4.9, "NGC 2244"],
+    14: [T["AN"], S["H"], "Licorne", "3.9", "40'", "Arbre de Noël / Fourrure Renard", 9.9, "NGC 2264"],
+    15: [T["EN"], S["H"], "Grand Chien", "10.0", "10'x8'", "Casque de Thor", -13.2, "NGC 2359"],
+    16: [T["AO"], S["H"], "Grand Chien", "4.5", "36'", "Amas ouvert", -20.7, "NGC 2360"],
+    17: [T["AO"], S["H"], "Poupe", "4.4", "15'", "Amas ouvert", -14.8, "NGC 2423"],
+    18: [T["AO"], S["H"], "Poupe", "6.0", "20'", "Amas ouvert", -21.1, "NGC 2477"],
+    19: [T["AO"], S["H"], "Poupe", "5.0", "25'", "Amas ouvert", -37.0, "NGC 2451"],
+    20: [T["AO"], S["H"], "Boussole", "2.6", "25'", "Amas ouvert", -30.0, "NGC 2627"],
+    21: [T["G"], S["P"], "Hydre", "7.7", "12'x11'", "Galaxie du Moulinet Austral", -29.9, "NGC 5236"],
+    22: [T["G"], S["P"], "Lion", "9.2", "9'x5'", "Galaxie de la Boîte à Musique", 11.7, "NGC 2903"],
+    23: [T["G"], S["P"], "Lion", "9.3", "12'x2'", "Galaxie de l'Aiguille (Lion)", 13.1, "NGC 3628"],
+    24: [T["G"], S["P"], "Grande Ourse", "9.8", "11'x1'", "Galaxie de l'Aiguille Fine", 44.5, "NGC 4244"],
+    25: [T["G"], S["P"], "Chiens de Chasse", "8.6", "10'x9'", "Galaxie du Tournesol", 42.0, "NGC 5055"],
+    26: [T["G"], S["P"], "Grande Ourse", "10.0", "8'x7'", "Galaxie de la Planche à Savon", 53.4, "NGC 3077"],
+    27: [T["G"], S["P"], "Grande Ourse", "10.0", "20'x3'", "Galaxie de la Lame de Rasoir", 50.9, "NGC 3184"],
+    28: [T["G"], S["P"], "Grande Ourse", "9.5", "13'x4'", "Galaxie du Cigare (M82-like)", 68.5, "NGC 2841"],
+    29: [T["G"], S["P"], "Chiens de Chasse", "9.0", "15'x11'", "Galaxie de la Baleine", 32.5, "NGC 4631"],
+    30: [T["G"], S["P"], "Chiens de Chasse", "10.0", "5'x4'", "Galaxie de la Crosse", 32.8, "NGC 4656"],
+    31: [T["G"], S["P"], "Coma Berenices", "9.2", "15'x1'", "Galaxie de l'Aiguille (Coma)", 26.0, "NGC 4565"],
+    32: [T["G"], S["P"], "Vierge", "9.6", "10'x8'", "Galaxie de l'Oeil Noir (M64-like)", 18.2, "NGC 4725"],
+    33: [T["G"], S["P"], "Corbeau", "10.3", "5'x3'", "Galaxies des Antennes", -18.9, "NGC 4038"],
+    34: [T["G"], S["P"], "Vierge", "8.6", "9'x9'", "Galaxie Sombrero (M104-like)", -11.6, "NGC 4594"],
+    35: [T["G"], S["P"], "Centaure", "7.0", "18'x14'", "Centaurus A", -43.0, "NGC 5128"],
+    36: [T["AG"], S["P"], "Centaure", "3.7", "36'", "Omega Centauri", -47.5, "NGC 5139"],
+    37: [T["G"], S["P"], "Centaure", "10.6", "13'x3'", "Galaxie du Spiral d'Argent", -41.4, "NGC 4945"],
+    38: [T["AG"], S["E"], "Scorpion", "3.9", "26'", "Amas de Ptolémée (M7-like)", -34.8, "NGC 6441"],
+    39: [T["NP"], S["E"], "Scorpion", "11.0", '15"', "Nébuleuse du Scarabée", -34.3, "NGC 6302"],
+    40: [T["EN"], S["E"], "Autel", "6.0", "50'", "Nébuleuse de l'Araignée", -48.3, "NGC 6334"],
+    41: [T["EN"], S["E"], "Sagittaire", "6.0", "20'", "Nébuleuse de la Lagune (M8-like)", -24.4, "NGC 6523"],
+    42: [T["AO"], S["E"], "Sagittaire", "4.6", "13'", "Amas du Papillon (M6-like)", -32.2, "NGC 6405"],
+    43: [T["AO"], S["E"], "Scutellum", "5.8", "14'", "Amas du Canard Sauvage (M11-like)", -6.3, "NGC 6705"],
+    44: [T["NP"], S["E"], "Sagittaire", "8.1", '15"', "Nébuleuse du Petit Joyau", -14.8, "NGC 6818"],
+    45: [T["G"], S["E"], "Paon", "8.5", "11'x7'", "Galaxie du Paon", -57.6, "NGC 6744"],
+    46: [T["AG"], S["E"], "Toucan", "4.0", "30'", "47 Tucanae", -72.1, "NGC 104"],
+    47: [T["G"], S["E"], "Grue", "10.3", "6'x1'", "Galaxie de la Grue", -46.4, "NGC 7424"],
+    48: [T["G"], S["A"], "Sculpteur", "7.1", "25'x7'", "Galaxie de la Pièce d'Argent", -25.3, "NGC 253"],
+    49: [T["G"], S["A"], "Sculpteur", "8.0", "15'x14'", "Galaxie de Schéat", -39.2, "NGC 55"],
+    50: [T["G"], S["A"], "Baleine", "8.9", "12'x12'", "Galaxie Spirale de la Baleine", -1.1, "NGC 247"],
+    51: [T["G"], S["A"], "Baleine", "9.1", "13'x6'", "Galaxie de la Baleine (NGC 1055)", 0.4, "NGC 1055"],
+    52: [T["G"], S["A"], "Baleine", "3.4", "170'x30'", "Galaxie d'Andromède (M31-like)", 41.3, "NGC 224"],
+    53: [T["G"], S["A"], "Triangle", "5.7", "73'x45'", "Galaxie du Triangle (M33-like)", 30.7, "NGC 598"],
+    54: [T["AO"], S["A"], "Cassiopée", "6.9", "13'", "Amas de l'Arbre de Noël (M52-like)", 61.6, "NGC 7654"],
+    55: [T["AO"], S["A"], "Cassiopée", "4.2", "20'", "Amas de la Rose Rose", 61.3, "NGC 7789"],
+    56: [T["NP"], S["A"], "Andromède", "8.3", '15"', "Nébuleuse de la Boule de neige Bleue", 42.5, "NGC 7662"],
+    57: [T["NP"], S["A"], "Verseau", "7.3", '25"', "Nébuleuse Saturne", -11.4, "NGC 7009"],
+    58: [T["NP"], S["A"], "Verseau", "6.3", "15'", "Nébuleuse de l'Hélice", -20.8, "NGC 7293"],
+    59: [T["G"], S["A"], "Pégase", "9.5", "12'x11'", "Galaxie du Cerf-Volant", 15.8, "NGC 7331"],
+    60: [T["G"], S["A"], "Pégase", "12.0", "3'x2'", "Quintette de Stephan", 33.9, "NGC 7320"],
+    61: [T["G"], S["A"], "Poissons", "9.2", "10'x1'", "Galaxie de la Lame de Rasoir", 15.8, "NGC 488"],
+    62: [T["G"], S["A"], "Poissons", "10.0", "5'x4'", "Galaxie Spirale", 3.4, "NGC 524"],
+    63: [T["G"], S["A"], "Céto", "9.4", "13'x3'", "Galaxie de la Baleine (NGC 596)", -7.0, "NGC 596"],
+    64: [T["G"], S["A"], "Céto", "8.9", "12'x12'", "Galaxie Spirale", -1.1, "NGC 247"],
+    65: [T["G"], S["A"], "Sculpteur", "9.1", "13'x6'", "Galaxie de Schéat", -39.2, "NGC 55"],
+    66: [T["G"], S["A"], "Sculpteur", "7.1", "25'x7'", "Galaxie de la Pièce d'Argent", -25.3, "NGC 253"],
+    67: [T["G"], S["A"], "Phénix", "10.5", "6'x4'", "Galaxie du Phénix", -42.8, "NGC 613"],
+    68: [T["G"], S["H"], "Éridan", "9.3", "10'x2'", "Galaxie de l'Aiguille d'Éridan", -21.3, "NGC 1232"],
+    69: [T["G"], S["H"], "Éridan", "10.1", "5'x3'", "Galaxie Spirale Barree", -18.8, "NGC 1300"],
+    70: [T["G"], S["H"], "Éridan", "10.8", "3'x2'", "Galaxie de la Sorcière", -12.3, "NGC 1084"],
+    71: [T["NP"], S["H"], "Éridan", "12.4", '15"', "Nébuleuse de Cléopâtre", -12.9, "NGC 1535"],
+    72: [T["G"], S["H"], "Fourneau", "9.4", "11'x7'", "Galaxie du Fourneau", -30.3, "NGC 1365"],
+    73: [T["G"], S["H"], "Fourneau", "10.0", "6'x4'", "Galaxie Spirale", -36.1, "NGC 1398"],
+    74: [T["G"], S["H"], "Fourneau", "10.5", "5'x3'", "Galaxie Spirale", -37.2, "NGC 1316"],
+    75: [T["G"], S["H"], "Lièvre", "9.3", "5'x3'", "Galaxie du Lièvre", -18.5, "NGC 1964"],
+    76: [T["AG"], S["H"], "Lièvre", "7.7", "13'", "Amas du Lièvre", -24.5, "NGC 1904"],
+    77: [T["NP"], S["H"], "Gémeaux", "9.2", '20"', "Nébuleuse de l'Esquimau", 20.9, "NGC 2392"],
+    78: [T["AO"], S["H"], "Gémeaux", "6.5", "20'", "Amas de l'Écharpe", 24.3, "NGC 2158"],
+    79: [T["AO"], S["H"], "Gémeaux", "5.1", "15'", "Amas ouvert", 33.3, "NGC 2266"],
+    80: [T["AO"], S["H"], "Cocher", "6.0", "12'", "Amas du Sourire", 46.5, "NGC 1893"],
+    81: [T["G"], S["P"], "Lynx", "10.5", "5'x4'", "Galaxie du Lynx", 34.4, "NGC 2683"],
+    82: [T["G"], S["P"], "Cancer", "10.0", "7'x5'", "Galaxie Spirale", 33.3, "NGC 2775"],
+    83: [T["G"], S["P"], "Hydre", "7.7", "12'x11'", "Galaxie du Moulinet Austral", -29.9, "NGC 5236"],
+    84: [T["NP"], S["P"], "Hydre", "7.3", '25"', "Fantôme de Jupiter", -18.1, "NGC 3242"],
+    85: [T["G"], S["P"], "Machine Pneumatique", "10.3", "6'x4'", "Galaxie de la Machine Pneumatique", -31.1, "NGC 2997"],
+    86: [T["NP"], S["P"], "Velas", "9.7", "5'x4'", "Galaxie des Voiles", -45.1, "NGC 3132"],
+    87: [T["AO"], S["P"], "Centaure", "5.3", "15'", "Amas ouvert", -47.1, "NGC 3766"],
+    88: [T["EN"], S["P"], "Centaure", "6.0", "15'", "Nébuleuse de Lambda Centauri", -60.1, "NGC 3576"],
+    89: [T["AO"], S["P"], "Croix du Sud", "4.2", "10'", "La Boîte à Bijoux", -60.3, "NGC 4755"],
+    90: [T["AO"], S["P"], "Mouche", "5.0", "15'", "Amas ouvert", -70.1, "NGC 4833"],
+    91: [T["G"], S["P"], "Vierge", "9.6", "10'x8'", "Galaxie de l'Oeil Noir", 18.2, "NGC 4725"],
+    92: [T["G"], S["P"], "Vierge", "10.1", "6'x4'", "Galaxie spirale", 14.5, "NGC 4527"],
+    93: [T["G"], S["P"], "Vierge", "10.5", "5'x3'", "Galaxie spirale", 13.2, "NGC 4536"],
+    94: [T["G"], S["P"], "Chevelure de Bérénice", "9.2", "15'x1'", "Galaxie de l'Aiguille", 26.0, "NGC 4565"],
+    95: [T["G"], S["P"], "Chevelure de Bérénice", "10.0", "5'x4'", "Galaxie spirale", 21.7, "NGC 4725"],
+    96: [T["G"], S["P"], "Chiens de Chasse", "9.0", "15'x11'", "Galaxie de la Baleine", 32.5, "NGC 4631"],
+    97: [T["G"], S["P"], "Chiens de Chasse", "10.0", "5'x4'", "Galaxie de la Crosse", 32.8, "NGC 4656"],
+    98: [T["G"], S["P"], "Chiens de Chasse", "8.6", "10'x9'", "Galaxie du Tournesol", 42.0, "NGC 5055"],
+    99: [T["G"], S["P"], "Grande Ourse", "9.8", "11'x1'", "Galaxie de l'Aiguille Fine", 44.5, "NGC 4244"],
+    100: [T["G"], S["P"], "Grande Ourse", "10.0", "8'x7'", "Galaxie de la Planche à Savon", 53.4, "NGC 3077"],
+    101: [T["NP"], S["E"], "Hercule", "12.0", '15"', "Nébuleuse de la Tortue", 37.5, "NGC 6210"],
+    102: [T["NP"], S["E"], "Dragon", "8.1", '20"', "Nébuleuse de l'Oeil de Chat", 66.6, "NGC 6543"],
+    103: [T["NP"], S["E"], "Lyre", "12.0", '10"', "Nébuleuse planétaire", 33.1, "NGC 6765"],
+    104: [T["AO"], S["E"], "Cygne", "7.2", "12'", "Amas ouvert", 30.2, "NGC 6819"],
+    105: [T["EN"], S["E"], "Cygne", "7.0", "20'x15'", "Nébuleuse du Croissant", 38.4, "NGC 6888"],
+    106: [T["AO"], S["E"], "Cygne", "6.8", "15'", "Amas ouvert", 44.2, "NGC 6866"],
+    107: [T["EN"], S["E"], "Cygne", "5.0", "70'x60'", "Nébuleuse de l'Amérique du Nord", 44.3, "NGC 7000"],
+    108: [T["EN"], S["E"], "Cygne", "6.0", "30'x25'", "Nébuleuse du Pélican", 44.5, "IC 5070"],
+    109: [T["NP"], S["E"], "Céphée", "11.0", '12"', "Nébuleuse de la Goutte de Sang", 59.9, "NGC 40"],
+    1001: [T["RN"], S["A"], "Cassiopée", "10.1", "8.6'", "vdB 1", 58.7, "vdB 1"],
+    1002: [T["G"], S["A"], "Sculpteur", "10.4", "8.1'", "Galaxie du Calmar Géant", -33.2, "NGC 134"],
+    1003: [T["G"], S["A"], "Poissons", "10.4", "5.2'", "Galaxie du Tourbillon", 5.2, "NGC 488"],
+    1004: [T["AO"], S["A"], "Cassiopée", "7.9", "40'", "Amas ouvert avec nébulosité", 61.8, "NGC 654"],
+    1005: [T["AO"], S["A"], "Cassiopée", "9.1", "57'", "Lund 57 / Loch Ness Cluster", 71.9, "Collinder 463"],
+    1006: [T["AO"], S["A"], "Cassiopée", "4.4", "130'", "Strong Man Cluster", 59.4, "Stock 2"],
+    1007: [T["G"], S["A"], "Céto", "10.1", "5.2'", "Galaxie de la Soucoupe", -1.1, "NGC 936"],
+    1008: [T["G"], S["A"], "Éridan", "10.6", "2.9'", "Galaxie de la Truffe", -7.5, "NGC 1084"],
+    1009: [T["AO"], S["A"], "Persée", "7.6", "10'", "Amas de l'Étoile de Mer", 47.2, "NGC 1245"],
+    1010: [T["G"], S["A"], "Éridan", "10.4", "6.5'", "Galaxie spirale barrée", -19.4, "NGC 1300"],
+    1011: [T["AO"], S["H"], "Persée", "8.1", "30'", "Amas de la Raie / Petit Scorpion", 37.3, "NGC 1342"],
+    # LA VOICI ! (n°12 du livre Secret Deep)
+    1012: [T["N"], S["H"], "Orion", "10.0", "90'", "La Tête de Cheval (dans Barnard's Loop)", 0.7, "Barnard 33"], 
+    1013: [T["G"], S["H"], "Éridan", "10.8", "1.9'", "Galaxie avec NGC 1407", -18.6, "NGC 1400"],
+    1014: [T["G"], S["H"], "Éridan", "9.7", "2.5'", "Galaxie avec NGC 1400", -18.5, "NGC 1407"],
+    1015: [T["EN"], S["H"], "Persée", "10.0", "12'", "Nébuleuse de l'Empreinte Fossile", 51.3, "NGC 1491"],
+    1016: [T["NP"], S["H"], "Taureau", "10.0", "2'", "Nébuleuse de la Boule de Cristal", 30.7, "NGC 1514"],
+    1017: [T["EN"], S["H"], "Persée", "10.0", "12'", "Trifide du Nord", 35.2, "NGC 1579"],
+    1018: [T["AO"], S["H"], "Taureau", "7.0", "60'", "Amas ouvert", 23.6, "NGC 1750"],
+    1019: [T["AO"], S["H"], "Taureau", "7.0", "90'", "Amas ouvert", 23.7, "NGC 1758"],
+    1020: [T["EN"], S["H"], "Orion", "10.0", "8'", "Chauve-Souris Cosmique / Foxface", -3.3, "NGC 1788"],
+    1021: [T["AO"], S["H"], "Taureau", "7.0", "17'", "Amas ouvert", 16.5, "NGC 1807"],
+    1022: [T["AO"], S["H"], "Taureau", "7.7", "16'", "Amas ouvert", 16.6, "NGC 1817"],
+    1023: [T["EN"], S["H"], "Cocher", "10.0", "13'", "Nébuleuse de l'Araignée", 34.4, "IC 417"],
+    1024: [T["AO"], S["H"], "Cocher", "8.3", "3'", "La Mouche (avec IC 417)", 34.2, "NGC 1931"],
+    1025: [T["AO"], S["H"], "Orion", "0.4", "150'", "Ceinture d'Orion", -1.0, "Collinder 70"],
+    1026: [T["NP"], S["H"], "Orion", "11.6", "0.5'", "Nébuleuse des Baisers", 9.1, "NGC 2022"],
+    1027: [T["NP"], S["H"], "Cocher", "11.5", "0.25'", "Nébuleuse planétaire", 46.1, "IC 2149"],
+    1028: [T["EN"], S["H"], "Licorne", "10.0", "3'", "Nébuleuse par émission", -9.7, "NGC 2149"],
+    1029: [T["RN"], S["H"], "Licorne", "10.0", "110'", "Nébuleuse de l'Ange", -6.3, "NGC 2170"],
+    1030: [T["AO"], S["H"], "Cocher", "7.2", "15'", "Amas du Cœur Brisé", 41.1, "NGC 2281"],
+    1031: [T["AG"], S["H"], "Poupe", "7.3", "6.8'", "Amas Globulaire de la Poupe", -36.0, "NGC 2298"],
+    1032: [T["EN"], S["H"], "Licorne", "10.0", "4'", "Nébuleuse par émission", -7.7, "NGC 2316"],
+    1033: [T["AO"], S["H"], "Licorne", "5.5", "7'", "Amas ouvert", -10.6, "NGC 2343"],
+    1034: [T["NP"], S["H"], "Licorne", "10.3", "2'", "Nébuleuse du Papillon", -0.8, "NGC 2346"],
+    1035: [T["EN"], S["H"], "Grand Chien", "10.0", "10'", "Casque de Thor / Canard", -13.2, "NGC 2359"],
+    1036: [T["NP"], S["H"], "Gémeaux", "9.1", "2.1'", "Nébuleuse de la Double Bulle", 29.4, "NGC 2371"],
+    1037: [T["AO"], S["H"], "Gémeaux", "9.1", "10'", "Amas de la Comète Scintillante", 21.5, "NGC 2420"],
+    1038: [T["G"], S["P"], "Grande Ourse", "10.1", "7.6'", "Galaxie du Frisbee Fantôme", 55.6, "NGC 3079"],
+    1039: [T["G"], S["P"], "Grande Ourse", "10.0", "4.6'", "Galaxie irrégulière", 68.7, "NGC 3077"],
+    1040: [T["G"], S["P"], "Sextant", "10.5", "30'", "Galaxie Impétueuse", 3.4, "NGC 3166"],
+    1041: [T["G"], S["P"], "Sextant", "10.3", "4.8'", "Galaxie spirale", 3.4, "NGC 3169"],
+    1042: [T["G"], S["P"], "Grande Ourse", "10.7", "8.3'", "Galaxie spirale", 45.5, "NGC 3198"],
+    1043: [T["G"], S["P"], "Lion", "10.3", "2.8'", "Arp 94 (avec NGC 3227)", 19.8, "NGC 3226"],
+    1044: [T["G"], S["P"], "Lion", "10.3", "5.6'", "Arp 94 (avec NGC 3226)", 19.8, "NGC 3227"],
+    1045: [T["G"], S["P"], "Petit Lion", "10.5", "6.2'", "Arp 206 / Aiguille à tricoter", 36.6, "NGC 3432"],
+    1046: [T["G"], S["P"], "Grande Ourse", "10.1", "5.9'", "Galaxie spirale", 43.5, "NGC 3675"],
+    1047: [T["G"], S["P"], "Grande Ourse", "10.6", "4.4'", "Galaxie spirale", 48.7, "NGC 3893"],
+    1048: [T["G"], S["P"], "Grande Ourse", "10.3", "6.6'", "Galaxie spirale", 52.3, "NGC 3953"],
+    1049: [T["G"], S["P"], "Grande Ourse", "10.5", "4.5'", "Galaxie avec NGC 4041", 61.9, "NGC 4036"],
+    1050: [T["G"], S["P"], "Grande Ourse", "10.1", "5'", "Galaxie spirale", 44.5, "NGC 4051"],
+    1051: [T["G"], S["P"], "Chiens de Chasse", "10.7", "4.8'", "Galaxie spirale", 43.0, "NGC 4111"],
+    1052: [T["AG"], S["P"], "Chevelure de Bérénice", "10.3", "4'", "Amas Kick the Can", 18.5, "NGC 4147"],
+    1053: [T["G"], S["P"], "Chevelure de Bérénice", "10.1", "6'", "Galaxie de l'Oeil Noir", 18.3, "NGC 4293"],
+    1054: [T["G"], S["P"], "Chevelure de Bérénice", "10.3", "3.6'", "Galaxie en troupeau", 31.2, "NGC 4414"],
+    1055: [T["G"], S["P"], "Vierge", "11.0", "3'", "Arp 120 (avec NGC 4438)", 13.0, "NGC 4435"],
+    1056: [T["G"], S["P"], "Vierge", "10.1", "9.3'", "Les Yeux (Arp 120)", 13.0, "NGC 4438"],
+    1057: [T["G"], S["P"], "Chevelure de Bérénice", "10.1", "4.8'", "Galaxie spirale", 17.0, "NGC 4450"],
+    1058: [T["G"], S["P"], "Vierge", "10.3", "3.7'", "Galaxie proche des Yeux", 13.1, "NGC 4461"],
+    1059: [T["G"], S["P"], "Chevelure de Bérénice", "10.2", "4.5'", "Galaxie elliptique", 13.4, "NGC 4473"],
+    1060: [T["G"], S["P"], "Chevelure de Bérénice", "10.4", "4'", "Galaxie spirale", 13.6, "NGC 4477"],
+    1061: [T["G"], S["P"], "Vierge", "9.5", "6.2'", "Galaxie elliptique", 2.6, "NGC 4636"],
+    1062: [T["G"], S["P"], "Vierge", "10.5", "4.2'", "Galaxie spirale", 3.0, "NGC 4665"],
+    1063: [T["G"], S["P"], "Vierge", "10.5", "5.4'", "Galaxie lenticulaire", -1.2, "NGC 4753"],
+    1064: [T["G"], S["P"], "Vierge", "10.1", "8.7'", "Galaxie avec NGC 4754", 11.2, "NGC 4762"],
+    1065: [T["G"], S["P"], "Chiens de Chasse", "10.0", "11'", "Galaxie spirale", 36.5, "NGC 5033"],
+    1066: [T["G"], S["P"], "Chiens de Chasse", "10.0", "5.4'", "Compagne de M51 (Arp 85)", 47.2, "NGC 5195"],
+    1067: [T["AG"], S["P"], "Bouvier", "10.3", "11'", "Amas Globulaire Fantôme", 28.5, "NGC 5466"],
+    1068: [T["G"], S["P"], "Vierge", "10.5", "3.4'", "Galaxie spirale", 1.6, "NGC 5846"],
+    1069: [T["G"], S["P"], "Dragon", "10.1", "12'", "Galaxie de l'Éclat", 56.3, "NGC 5907"],
+    1070: [T["NP"], S["E"], "Hercule", "11.4", "0.25'", "Nébuleuse du Petit Pois", 12.0, "IC 4593"],
+    1071: [T["AG"], S["E"], "Scorpion", "9.0", "9.3'", "Amas Globulaire", -26.0, "NGC 6144"],
+    1072: [T["G"], S["E"], "Hercule", "11.5", "3'", "Galaxie proche de M13", 36.8, "NGC 6207"],
+    1073: [T["AG"], S["E"], "Hercule", "9.4", "4.5'", "Amas Globulaire d'Hercule", 47.5, "NGC 6229"],
+    1074: [T["AG"], S["E"], "Ophiuchus", "9.0", "7.9'", "Amas Globulaire", -26.5, "NGC 6293"],
+    1075: [T["NP"], S["E"], "Ophiuchus", "10.5", "0.75'", "Nébuleuse de la Boîte", -12.9, "NGC 6309"],
+    1076: [T["AG"], S["E"], "Ophiuchus", "9.5", "7.2'", "Amas Globulaire", -17.8, "NGC 6356"],
+    1077: [T["AG"], S["E"], "Sagittaire", "10.3", "90'", "Fenêtre de Baade", -30.0, "NGC 6522"],
+    1078: [T["AG"], S["E"], "Sagittaire", "10.0", "3.7'", "Amas Globulaire", -30.0, "NGC 6528"],
+    1079: [T["NP"], S["E"], "Sagittaire", "11.0", "1.5'", "Anneau Austral", -33.8, "NGC 6563"],
+    1080: [T["RN"], S["E"], "Sagittaire", "10.0", "5'", "Nébuleuse par réflexion", -19.7, "NGC 6589"],
+    1081: [T["RN"], S["E"], "Sagittaire", "10.0", "11'", "Nébuleuse par réflexion", -19.8, "NGC 6595"],
+    1082: [T["AG"], S["E"], "Sagittaire", "9.0", "5'", "Amas Globulaire", -25.5, "NGC 6638"],
+    1083: [T["AO"], S["E"], "Écu de Sobieski", "7.2", "16'", "Amas du Traîneau / Théière", -8.2, "NGC 6664"],
+    1084: [T["AG"], S["E"], "Sagittaire", "9.1", "3.9'", "Amas Globulaire (Palomar 9)", -22.7, "NGC 6717"],
+    1085: [T["NP"], S["E"], "Aigle", "11.5", "0.25'", "Nébuleuse de la Fleur de Pissenlit", -5.9, "NGC 6751"],
+    1086: [T["AO"], S["E"], "Aigle", "7.0", "90'", "Amas avec NGC 6756", 4.2, "NGC 6755"],
+    1087: [T["AO"], S["E"], "Aigle", "10.0", "4'", "Amas avec NGC 6755", 4.7, "NGC 6756"],
+    1088: [T["NP"], S["E"], "Aigle", "11.5", "1'", "Mini Dumbbell / Fils de M76", -1.5, "NGC 6778"],
+    1089: [T["NP"], S["E"], "Aigle", "11.5", "2'", "Nébuleuse de la Boule de Neige", 6.5, "NGC 6781"],
+    1090: [T["NP"], S["E"], "Aigle", "11.5", "1'", "Nébuleuse du Rétrécissement", 9.2, "NGC 6804"],
+    1091: [T["AO"], S["E"], "Cygne", "8.1", "13'", "Smoke Ring / Hole in a Cluster", 46.3, "NGC 6811"],
+    1092: [T["A"], S["E"], "Cygne", "10.0", "12'", "Astérisme du Cerf-Volant", 47.5, "Cygnus Kite Asterism"],
+    1093: [T["NP"], S["E"], "Dauphin", "11.5", "0.3'", "Nébuleuse planétaire", 12.7, "NGC 6891"],
+    1094: [T["NP"], S["E"], "Cygne", "10.0", "1'", "Petite Nébuleuse de l'Anneau", 30.5, "NGC 6894"],
+    1095: [T["EN"], S["E"], "Cygne", "10.0", "0.1'", "Nébuleuse Gamma Cygni", 40.2, "IC 1318"],
+    1096: [T["NP"], S["E"], "Dauphin", "10.9", "1'", "Nébuleuse de l'Éclair Bleu", 20.1, "NGC 6905"],
+    1097: [T["AO"], S["E"], "Cygne", "5.9", "8'", "Amas de l'Arpenteur (Inchworm)", 40.7, "NGC 6910"],
+    1098: [T["AO"], S["A"], "Céphée", "8.8", "8'", "Astérisme de l'Oie en vol", 60.6, "NGC 6939"],
+    1099: [T["NP"], S["A"], "Cygne", "10.7", "0.5'", "Nébuleuse du Cheeseburger", 47.8, "NGC 7026"],
+    1100: [T["NP"], S["A"], "Cygne", "10.0", "1'", "Nébuleuse du Disque Fantôme", 46.2, "NGC 7048"],
+    1101: [T["RN"], S["A"], "Céphée", "10.0", "8'", "Rose Cosmique", 66.1, "NGC 7129"],
+    1102: [T["AO"], S["A"], "Céphée", "6.1", "7'", "Alligator Nageur", 62.6, "NGC 7160"],
+    1103: [T["AO"], S["A"], "Lézard", "8.4", "40'", "Amas ouvert", 46.4, "NGC 7209"],
+    1104: [T["NP"], S["A"], "Céphée", "11.0", "0.7'", "Nébuleuse planétaire", 61.2, "NGC 7354"],
+    1105: [T["AO"], S["A"], "Céphée", "7.3", "4'", "Amas du Loir (Dormouse)", 60.5, "NGC 7510"],
+    1106: [T["EN"], S["A"], "Céphée", "10.0", "10'", "Nébuleuse de la Lagune Nord", 61.5, "NGC 7538"],
+    1107: [T["AO"], S["A"], "Cassiopée", "8.5", "17'", "Amas avec NGC 7788", 61.2, "NGC 7790"],
+}
+
+
 """
 # --- ENGLISH TRANSLATED DATABASES (MESSIER, CALDWELL, RASC) ---
 # remove the triple quote above and at the end of the database (python bloc comment)
@@ -781,7 +1012,8 @@ RASC_DATA = {
 CATALOGS = {
     "Messier": {"prefix": "M", "data": MESSIER_DATA},          # the prefix is used in the HTML page
     "Caldwell": {"prefix": "C", "data": CALDWELL_DATA},
-    "RASC": {"prefix": "R", "data": RASC_DATA}
+    "RASC": {"prefix": "R", "data": RASC_DATA},
+    "O MEARA": {"prefix": "X", "data": O_MEARA_DATA}
 }
 
 # --- SCRIPT ---
@@ -794,15 +1026,18 @@ def find_image(prefix, obj_id, tech_ref):
              if f.lower().endswith(valid_exts) and "_thumb" not in f]
 
     if tech_ref:
-        match = re.search(r"(NGC|IC|Sh2|Mel|WNC|M)\s?(\d+)", tech_ref, re.IGNORECASE)
+        # Capture le type et le numéro
+        match = re.search(r"(NGC|IC|SH2|Mel|WNC|M|Barnard|vdB)\s?(\d+)", tech_ref, re.IGNORECASE)
         if match:
-            
             a_type, a_num = match.group(1), match.group(2)
-            pattern = rf"{a_type}\s?{a_num}(?!\d)"
+            # Ajout de [_ \-\.]? pour gérer les séparateurs après le type
+            # Le lookahead (?!\d) est conservé
+            pattern = rf"{a_type}[_ \-\s]?{a_num}(?!\d)"
             for filename in files:
                 if re.search(pattern, filename, re.IGNORECASE):
                     return filename
 
+    # Recherche par prefix + obj_id
     pattern_id = rf"(^|[_ \-\.]){prefix}[_ \-\s]?{obj_id}(?!\d)"
     for filename in files:
         if re.search(pattern_id, filename, re.IGNORECASE):
@@ -907,12 +1142,19 @@ def generate():
     # --- Préparation des options pour les menus déroulants ---
     select_options = "".join([f'<option value="{c}" {"selected" if c == CONFIG["SELECTED_CATALOG"] else ""}>{c}</option>' for c in CATALOGS.keys()])
     season_options = "".join([f'<option value="{val}">{val}</option>' for val in LANG["SEASONS"].values()])
-    # Nouvelles options de direction
     dir_options = f'<option value="Tous">{LANG["ALL_DIR"]}</option><option value="{LANG["NORTH"]}">{LANG["NORTH"]}</option><option value="{LANG["SOUTH"]}">{LANG["SOUTH"]}</option>'
-    
-    limit_small = CONFIG.get("LIMIT_SMALL_OBJECT", 60)
 
-    html_template = f"""<!DOCTYPE html>
+    # Construction dynamique des familles depuis LANG
+    family_options = f"""
+        <option value="Tous">{LANG['FAMILIES_LABELS']['ALL']}</option>
+        <option value="Nébuleuse">{LANG['FAMILIES_LABELS']['NEB']}</option>
+        <option value="Galaxie">{LANG['FAMILIES_LABELS']['GAL']}</option>
+        <option value="Amas">{LANG['FAMILIES_LABELS']['CLU']}</option>
+    """
+
+    limit_small = CONFIG.get("LIMIT_SMALL_OBJECT", 60)
+    
+    html_template = fr"""<!DOCTYPE html>
     <html lang="fr">
     <head>
         <meta charset="UTF-8">
@@ -935,30 +1177,20 @@ def generate():
                 font-size: 14px;
                 outline: none;
                 transition: 0.2s;
-                
-                /* Suppression de la flèche par défaut du navigateur */
                 appearance: none; 
                 -webkit-appearance: none;
                 -moz-appearance: none;
-
-                /* Ajout d'une flèche SVG personnalisée en arrière-plan */
                 background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23ffffff%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E');
                 background-repeat: no-repeat;
-                background-position: right 12px top 50%; /* Positionnement de la flèche */
+                background-position: right 12px top 50%; 
                 background-size: 10px auto;
             }}
             
-            /* Pour Internet Explorer (si nécessaire) */
-            .filter-select::-ms-expand {{
-                display: none;
+            .filter-select:hover, .filter-select:focus {{ 
+                border-color: #388bfd; 
+                background-color: #2a3039; 
+                box-shadow: 0 0 0 2px rgba(56, 139, 253, 0.3);
             }}
-
-        /* Garde la bordure bleue et la flèche même au survol et au clic */
-        .filter-select:hover, .filter-select:focus {{ 
-            border-color: #388bfd; 
-            background-color: #2a3039; /* Léger changement de fond au survol pour le feedback */
-            box-shadow: 0 0 0 2px rgba(56, 139, 253, 0.3);
-        }}
 
             .grid {{ display: grid; grid-template-columns: repeat(auto-fill, minmax(var(--case-size), 1fr)); gap: 15px; width: 100%; margin: 0 auto; }}
             .case {{ background: #161b22; border-radius: 8px; border: 1px solid #30363d; overflow: hidden; position: relative; display: flex; flex-direction: column; }}
@@ -980,6 +1212,9 @@ def generate():
             <select id="catSelect" class="filter-select" onchange="update()">
                 {select_options}
             </select>
+            <select id="familySelect" class="filter-select" onchange="filterF(this.value)">
+                {family_options}
+            </select>
             <select id="seasonSelect" class="filter-select" onchange="filterS(this.value)">
                 <option value="Tous">{LANG['ALL']}</option>
                 {season_options}
@@ -998,169 +1233,176 @@ def generate():
             const stats = {json.dumps(stats)};
             const prefixes = {json.dumps(prefixes_js)};
             const thumbDir = "{CONFIG['THUMB_DIR']}";
-            const userLat = {CONFIG['LATITUDE']}; // On injecte la latitude
+            const userLat = {CONFIG['LATITUDE']}; 
+            
+            // Mapping des familles avec les types abrégés
+            // Correction de la logique de filtrage par famille en utilisant les traductions réelles
+            const FAMILIES = {{
+                "Nébuleuse": [
+                    "{LANG['TYPES']['N']}", "{LANG['TYPES']['NP']}", "{LANG['TYPES']['NS']}", 
+                    "{LANG['TYPES']['SNR']}", "{LANG['TYPES']['EN']}", "{LANG['TYPES']['RN']}", 
+                    "{LANG['TYPES']['E/RN']}", "{LANG['TYPES']['AN']}"
+                ],
+                "Galaxie": ["{LANG['TYPES']['G']}"],
+                "Amas": [
+                    "{LANG['TYPES']['AG']}", "{LANG['TYPES']['AO']}", 
+                    "{LANG['TYPES']['D']}", "{LANG['TYPES']['A']}", "{LANG['TYPES']['AN']}"
+                ]
+            }};
             
             let currentSeason = 'Tous';
-            let currentDir = 'Tous'; // Nouveau filtre
+            let currentDir = 'Tous'; 
+            let currentFamily = 'Tous';
+            
             let scale = 1, posX = 0, posY = 0, isDragging = false, startX, startY;
             const m = document.getElementById("overlay"), mi = document.getElementById("fullImg"), t = document.getElementById('tooltip');
 
-            function filterS(s) {{
-                currentSeason = s;
-                update();
-            }}
+            function filterS(s) {{ currentSeason = s; update(); }}
+            function filterD(d) {{ currentDir = d; update(); }}
+            function filterF(f) {{ console.log("Filtre Famille sélectionné :", f); currentFamily = f; update(); }}
 
-            // Nouvelle fonction de filtre de direction
-            function filterD(d) {{
-                currentDir = d;
-                update();
-            }}
+            function update() {{
+                const cat = document.getElementById('catSelect').value;
+                const g = document.getElementById('grid'); 
+                g.innerHTML = '';
+                
+                console.log("--- START UPDATE ---");
+                console.log("Filtres actifs -> Famille:", currentFamily, "| Saison:", currentSeason, "| Dir:", currentDir);
 
-        function update() {{
-            const cat = document.getElementById('catSelect').value;
-            document.getElementById('catTitle').innerText = "Catalogue " + cat;
-            document.getElementById('statsText').innerText = "(" + stats[cat] + ")";
-            const g = document.getElementById('grid'); g.innerHTML = '';
-            
-            data[cat].forEach(obj => {{
-                if (currentSeason !== 'Tous' && obj.info[1] !== currentSeason) return;
+                document.getElementById('catTitle').innerText = "Catalogue " + cat;
+                document.getElementById('statsText').innerText = "(" + stats[cat] + ")";
                 
-                // 2. Calcul et Filtre Direction
-                const declin = parseFloat(obj.info[6]);
-                const objDir = declin > userLat ? "{LANG['NORTH']}" : "{LANG['SOUTH']}";
-                if (currentDir !== 'Tous' && objDir !== currentDir) return;
-                
-                const d = document.createElement('div'); d.className = 'case';
-                d.onmousemove = (e) => showT(e, obj);
-                d.onmouseleave = () => t.style.display='none';
-                
-                // thumbnail area text (type and season)
-                // season to be displayed only when currentseason == "Tous"
-                let displaySeason = currentSeason === 'Tous' ? `<br>(${{obj.info[1]}})` : '';
-                let content = obj.thumb ? `<img src="${{obj.thumb}}">` : `<div class="empty-info">${{obj.info[0]}}${{displaySeason}}</div>`;
-                
-                // ---  REDIRECT VIEW POUR TIF OU TIFF ---
-                let clickImg = obj.img;
-                if (obj.img && (obj.img.toLowerCase().endsWith('.tif') || obj.img.toLowerCase().endsWith('.tiff'))) {{
-                    // 1. Récupérer le nom de fichier sans l'extension
-                    let baseName = obj.img.substring(0, obj.img.lastIndexOf('.'));
-    
-                    // 2. Supprimer le préfixe "thumb_" s'il existe au début du nom
-                    if (baseName.startsWith('thumb_')) {{
-                        baseName = baseName.substring(6); // 6 est la longueur de "thumb_"
+                let count = 0;
+                data[cat].forEach(obj => {{
+                    if (!obj.info || obj.info.length < 7) return;
+                    
+                    const objType = obj.info[0].trim();
+                    const objSeason = obj.info[1].trim();
+                    const declin = parseFloat(obj.info[6]);
+                    const objDir = declin > userLat ? "{LANG['NORTH']}" : "{LANG['SOUTH']}";
+                    
+                    // --- LOGIQUE FILTRE FAMILLE AVEC LOGS ---
+                    if (currentFamily !== 'Tous') {{
+                        const allowedTypes = FAMILIES[currentFamily];
+                        const isMatch = allowedTypes && allowedTypes.includes(objType);
+                        
+                        // Décommenter la ligne suivante pour un debug massif :
+                        console.log(`Objet ${{obj.id}}: Type="${{objType}}", Famille="${{currentFamily}}", Match=${{isMatch}}`);
+                        
+                        if (!isMatch) return; 
                     }}
-    
-                    // 3. Concaténer avec le nouveau préfixe view_
-                    clickImg = thumbDir + "/view_" + baseName + ".jpg";
-                    // --- DEBUG ---
-                    console.log("Source originale (obj.img):", obj.img);
-                    console.log("Base extraite (baseName):", baseName);
-                    console.log("Chemin final généré (clickImg):", clickImg);
+
+                    if (currentSeason !== 'Tous' && objSeason !== currentSeason) return;
+                    if (currentDir !== 'Tous' && objDir !== currentDir) return;
+                    
+                    count++;
+                    const d = document.createElement('div'); d.className = 'case';
+                    d.onmousemove = (e) => showT(e, obj);
+                    d.onmouseleave = () => t.style.display='none';
+                    
+                    let displaySeason = currentSeason === 'Tous' ? `<br>(${{objSeason}})` : '';
+                    let content = obj.thumb ? `<img src="${{obj.thumb}}">` : `<div class="empty-info">${{objType}}${{displaySeason}}</div>`;
+                    
+                    // --- REDIRECT VIEW POUR TIF OU TIFF ---
+                    let clickImg = obj.img;
+                    if (obj.img && (obj.img.toLowerCase().endsWith('.tif') || obj.img.toLowerCase().endsWith('.tiff'))) {{
+                        let baseName = obj.img.substring(0, obj.img.lastIndexOf('.'));
+                        if (baseName.startsWith('thumb_')) baseName = baseName.substring(6);
+                        clickImg = thumbDir + "/view_" + baseName + ".jpg";
+                    }}
+                    
+                    // --- URL TELESCOPIUS management ---
+                    let tUrl = "https://telescopius.com/deep-sky-objects/";
+                    if (obj.prefix === prefixes.Messier) {{
+                        tUrl += "m-" + obj.id;
+                    }} else if (obj.prefix === prefixes.Caldwell) {{
+                        tUrl += "c-" + obj.id;
+                    }} else if (obj.prefix === prefixes.RASC || obj.prefix === prefixes["O MEARA"]) {{
+                        const regex = /(?:NGC|IC|SH2|BARNARD|VDB)[_ \-]?(\d+)/i;
+                        const match = obj.tech_ref.match(regex);
+                        const idNum = match ? match[1] : ""; 
+                        if (obj.tech_ref.toUpperCase().includes("IC")) tUrl += "ic-" + idNum;
+                        else if (obj.tech_ref.toUpperCase().includes("SH2")) tUrl += "sh2-" + idNum;
+                        else if (obj.tech_ref.toUpperCase().includes("BARNARD")) tUrl += "barnard-" + idNum;
+                        else if (obj.tech_ref.toUpperCase().includes("VDB")) tUrl += "vdb-" + idNum;
+                        else tUrl += "ngc-" + idNum;
+                    }}
+                    
+                    const labelText = obj.tech_ref ? `${{obj.prefix}}${{obj.id}} - ${{obj.tech_ref}}` : `${{obj.prefix}}${{obj.id}}`;
+                    const imgAction = obj.img ? `openM('${{clickImg}}')` : `window.open('${{tUrl}}', '_blank')`;
+
+                    d.innerHTML = `<div class="img-box" onclick="${{imgAction}}">${{content}}</div>
+                                   <div class="label" style="color:${{obj.label_color}}" onclick="window.open('${{tUrl}}', '_blank')">${{labelText}}</div>`;
+                    g.appendChild(d);
+                }});
+                console.log("Total affiché après filtres :", count);
+            }}
+
+            function openM(s) {{ if(!s) return; scale = 1; posX = 0; posY = 0; mi.src = s; m.style.display = "block"; updateTransform(); }}
+            function closeM() {{ m.style.display = "none"; }}
+            function updateTransform() {{ mi.style.transform = `translate(calc(-50% + ${{posX}}px), calc(-50% + ${{posY}}px)) scale(${{scale}})`; }}
+            
+            m.addEventListener('wheel', e => {{ e.preventDefault(); scale = Math.min(Math.max(0.5, scale * (e.deltaY > 0 ? 0.9 : 1.1)), 10); updateTransform(); }}, {{passive: false}});
+            mi.addEventListener('mousedown', e => {{ isDragging = true; startX = e.clientX - posX; startY = e.clientY - posY; e.preventDefault(); }});
+            window.addEventListener('mousemove', e => {{ if (isDragging) {{ posX = e.clientX - startX; posY = e.clientY - startY; updateTransform(); }} }});
+            window.addEventListener('mouseup', () => isDragging = false);
+
+            // show ToolTip
+            function showT(e, obj) {{
+                let html = "";
+                if (obj.img) {{
+                    html += `<div style="color:#4a9eff; font-weight:bold; font-size:12px; margin-bottom:2px;">${{obj.img}}</div>`;
+                    html += `<div style="color:#888; font-size:11px; margin-bottom:8px;">Date: ${{obj.date}}</div>`;
+                    html += `<hr style="border:0; border-top:1px solid #444; margin:8px 0;">`;
                 }}
                 
-                // ---  URL TELESCOPIUS management (RASC <==> NGC from database field(tech_ref)) ---
-                let tUrl = "https://telescopius.com/deep-sky-objects/";
-                if (obj.prefix === prefixes.Messier) {{
-                    tUrl += "m-" + obj.id;
-                }} else if (obj.prefix === prefixes.Caldwell) {{
-                    tUrl += "c-" + obj.id;
-                }} else if (obj.prefix === prefixes.RASC) {{
-                    const numMatch = obj.tech_ref.match(/\\d+/);
-                    tUrl += "ngc-" + (numMatch ? numMatch[0] : "");
+                let s = obj.info[4] || "";
+                let c = "";
+                let threshold = {limit_small}; 
+                let dims = s.split(/[x×]/);
+                let isSmall = dims.length > 0;
+
+                for (let i = 0; i < dims.length; i++) {{
+                    let d = dims[i].trim();
+                    let tm = 0, ts = 0;
+                    let mMatch = d.match(/([0-9.]+)'($|[^'])/);
+                    let sMatch = d.match(/([0-9.]+)(?:''|["])/);
+                    if (mMatch) tm = parseFloat(mMatch[1]);
+                    if (sMatch) ts = parseFloat(sMatch[1]);
+                    if (!mMatch && !sMatch) {{
+                        let v = parseFloat(d);
+                        if (!isNaN(v)) tm = v;
+                    }}
+                    if ((tm * 60) + ts >= threshold || (tm * 60) + ts === 0) {{ isSmall = false; break; }}
                 }}
-                
-                const labelText = obj.tech_ref ? `${{obj.prefix}}${{obj.id}} - ${{obj.tech_ref}}` : `${{obj.prefix}}${{obj.id}}`;
+                if (isSmall) c = ' style="color:orange;"';
 
-                // --- GESTION DU CLIC SUR THUMBNAIL (Condition Image Catalogue) ---
-                const imgAction = obj.img ? `openM('${{clickImg}}')` : `window.open('${{tUrl}}', '_blank')`;
+                const declin = parseFloat(obj.info[6]);
+                const isNorth = declin > userLat;
+                const direction = isNorth ? "{LANG['NORTH']}" : "{LANG['SOUTH']}";
+                const badgeColor = isNorth ? "#3498db" : "#f1c40f";
 
-                d.innerHTML = `<div class="img-box" onclick="${{imgAction}}">${{content}}</div>
-                               <div class="label" style="color:${{obj.label_color}}" onclick="window.open('${{tUrl}}', '_blank')">${{labelText}}</div>`;
-                g.appendChild(d);
-            }});
-        }}
-
-        function openM(s) {{ if(!s) return; scale = 1; posX = 0; posY = 0; mi.src = s; m.style.display = "block"; updateTransform(); }}
-        function closeM() {{ m.style.display = "none"; }}
-        function updateTransform() {{ mi.style.transform = `translate(calc(-50% + ${{posX}}px), calc(-50% + ${{posY}}px)) scale(${{scale}})`; }}
-        
-        m.addEventListener('wheel', e => {{ e.preventDefault(); scale = Math.min(Math.max(0.5, scale * (e.deltaY > 0 ? 0.9 : 1.1)), 10); updateTransform(); }}, {{passive: false}});
-        mi.addEventListener('mousedown', e => {{ isDragging = true; startX = e.clientX - posX; startY = e.clientY - posY; e.preventDefault(); }});
-        window.addEventListener('mousemove', e => {{ if (isDragging) {{ posX = e.clientX - startX; posY = e.clientY - startY; updateTransform(); }} }});
-        window.addEventListener('mouseup', () => isDragging = false);
-
-        // show ToolTip with type season, constellation, magnitude, declination, elevation...
-        // ==================================================================================
-        function showT(e, obj) {{
-            let html = "";
-            if (obj.img) {{
-                html += `<div style="color:#4a9eff; font-weight:bold; font-size:12px; margin-bottom:2px;">${{obj.img}}</div>`;
-                html += `<div style="color:#888; font-size:11px; margin-bottom:8px;">Date: ${{obj.date}}</div>`;
+                html += `<div><strong>Type:</strong> ${{obj.info[0]}}</div>`;
+                html += `<div><strong>Saison:</strong> ${{obj.info[1]}}</div>`;
+                html += `<div><strong>Constellation:</strong> ${{obj.info[2]}}</div>`;
+                html += `<div><strong>Magnitude:</strong> ${{obj.info[3]}}</div>`;
+                html += `<div${{c}}><strong>Taille:</strong> ${{s}}</div>`;
+                html += `<div><strong>Déclinaison:</strong> <span style="font-weight:bold; color:#c9d1d9;">${{obj.info[6]}}°</span> `;
+                html += `<span style="font-size:9px; background:#21262d; color:${{badgeColor}}; padding:1px 4px; border-radius:3px; border:1px solid ${{badgeColor}}; margin-left:5px; vertical-align:middle; font-weight:bold;">${{direction}}</span></div>`;
+                html += `<div><strong>Élévation Max:</strong> ${{obj.h_max}}°</div>`;
                 html += `<hr style="border:0; border-top:1px solid #444; margin:8px 0;">`;
+                html += `<div style="font-style:italic; color:#3498db; margin-top:5px;"><strong>${{obj.info[5]}}</strong></div>`;
+                
+                t.innerHTML = html; t.style.display = 'block';
+                let x = e.clientX + 15, y = e.clientY + 15;
+                if (x + 250 > window.innerWidth) x = e.clientX - t.offsetWidth - 15;
+                if (y + t.offsetHeight > window.innerHeight) y = e.clientY - t.offsetHeight - 15;
+                t.style.left = x + 'px'; t.style.top = y + 'px';
             }}
-            
-            let s = obj.info[4] || "";
-            let c = "";
-            let threshold = {limit_small}; 
-            
-            let dims = s.split(/[x×]/);
-            let isSmall = dims.length > 0;
-
-            for (let i = 0; i < dims.length; i++) {{
-                let d = dims[i].trim();
-                let tm = 0, ts = 0;
-                let mMatch = d.match(/([0-9.]+)'($|[^'])/);
-                let sMatch = d.match(/([0-9.]+)(?:''|["])/);
-                if (mMatch) tm = parseFloat(mMatch[1]);
-                if (sMatch) ts = parseFloat(sMatch[1]);
-                if (!mMatch && !sMatch) {{
-                    let v = parseFloat(d);
-                    if (!isNaN(v)) tm = v;
-                }}
-                let total = (tm * 60) + ts;
-                if (total >= threshold || total === 0) {{
-                    isSmall = false;
-                    break;
-                }}
-            }}
-
-            if (isSmall) c = ' style="color:orange;"';
-
-            // --- Logique Nord/Sud via LANG ---
-            // --- Logique Nord/Sud et Couleurs ---
-            const lat = {CONFIG["LATITUDE"]};
-            const declin = parseFloat(obj.info[6]);
-            const isNorth = declin > lat;
-            const direction = isNorth ? "{LANG['NORTH']}" : "{LANG['SOUTH']}";
-            
-            // Couleurs demandées : Nord (Bleu), Sud (Jaune)
-            const badgeColor = isNorth ? "#3498db" : "#f1c40f";
-            const badgeBorder = isNorth ? "1px solid #3498db" : "1px solid #f1c40f";
-
-            html += `<div><strong>Type:</strong> ${{obj.info[0]}}</div>`;
-            html += `<div><strong>Saison:</strong> ${{obj.info[1]}}</div>`;
-            html += `<div><strong>Constellation:</strong> ${{obj.info[2]}}</div>`;
-            html += `<div><strong>Magnitude:</strong> ${{obj.info[3]}}</div>`;
-            html += `<div${{c}}><strong>Taille:</strong> ${{s}}</div>`;
-            
-            // Ligne Déclinaison : texte standard + badge coloré
-            html += `<div><strong>Déclinaison:</strong> <span style="font-weight:bold; color:#c9d1d9;">${{obj.info[6]}}°</span> `;
-            html += `<span style="font-size:9px; background:#21262d; color:${{badgeColor}}; padding:1px 4px; border-radius:3px; border:${{badgeBorder}}; margin-left:5px; vertical-align:middle; font-weight:bold;">${{direction}}</span></div>`;
-            
-            html += `<div><strong>Élévation Max:</strong> ${{obj.h_max}}°</div>`;
-            
-            html += `<hr style="border:0; border-top:1px solid #444; margin:8px 0;">`;
-            html += `<div style="font-style:italic; color:#3498db; margin-top:5px;"><strong>${{obj.info[5]}}</strong></div>`;
-            
-            t.innerHTML = html; t.style.display = 'block';
-            let x = e.clientX + 15, y = e.clientY + 15;
-            if (x + 250 > window.innerWidth) x = e.clientX - t.offsetWidth - 15;
-            if (y + t.offsetHeight > window.innerHeight) y = e.clientY - t.offsetHeight - 15;
-            t.style.left = x + 'px'; t.style.top = y + 'px';
-        }}
-        
-        update();
-    </script></body></html>"""
+            update();
+        </script>
+    </body>
+    </html>"""
     
     with open(CONFIG["OUTPUT_HTML"], "w", encoding="utf-8") as f: f.write(html_template)
 
