@@ -1,4 +1,4 @@
-# Messier_Caldwell_RASC_catalog_generator
+# Messier_Caldwell_RASC_OMEARA_catalog_generator
 This is a python script to build a catalog of your Messier/Caldwell/RASC  objects astrophotographies
 
 After the Messier, the Caldwell, the RASC catalogs, I needed to simplify all this and make a commun generic one : here it is.
@@ -9,7 +9,8 @@ The script is able to manage files in .jpg, .jpeg, .png, .webp, .tif, .tiff and 
 Place the "astro_catalog_generator.py" script and the "astro_catalog_launcher.bat" file in the same folder where the images are located. Double-click on "astro_catalog_launcher.bat", accept the Windows prompts, and it will automatically collect missing python libraries and it generates an interactive HTML contact sheet. The .bat file, of course, only runs on PC...
 If there are multiple objects in the same image, name the file with both objects (e.g.,NGC4038_NGC4039_antenna.jpg). 
 
-<img width="1197" height="683" alt="cata" src="https://github.com/user-attachments/assets/555493b8-a62d-4c7c-a7cb-4fe7dd56d18b" />
+<img width="1317" height="846" alt="cata" src="https://github.com/user-attachments/assets/b41ce7cf-49e7-4031-b952-cd606bdb0e34" />
+
 
 
 thumbnails are created and stored into a "thumbnails" folder
@@ -19,10 +20,12 @@ The marathon score is displayed at the top .
 Placing the mouse over one object will display inside a popup window usefull data to prepare your imaging session.
 If you want to get more details, reference of each object (eg C42) is clickable and points to the corresponding telescopius page
 
-To switch between Messier/Caldwell/RASC catalog just select the required catalog from the menu bar.
-<img width="609" height="233" alt="cata_switch" src="https://github.com/user-attachments/assets/bfe374e2-4118-4782-acad-c7d36484b4f2" />
+To switch between Messier/Caldwell/RASC/OMEARA catalogs just select the required catalog from the menu bar.
+you can also filter by type of objects (Nebula, galaxies, clusters and others)
+<img width="1307" height="690" alt="nebu" src="https://github.com/user-attachments/assets/4151d09a-49de-4be1-97fe-0f72126a35ec" />
 
-In each catalog and especially in the Caldwell one the name of some objects are painted in orange or red.
+
+In each catalog and especially in the Caldwell and O'Meara the name of some objects are painted in orange or red.
 - orange means the object is always low on horizon (by default < 20°)
 - red means, it will never be above your horizon
 
