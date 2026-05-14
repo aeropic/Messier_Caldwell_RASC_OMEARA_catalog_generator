@@ -103,7 +103,7 @@ T, S = LANG["TYPES"], LANG["SEASONS"]
 # --- replace the lists here after with the "English_databases.txt" content for the english translation
 
 
-# --- Format: [Type, Season, Constellation, Mag, Size, Common Name, RA, Dec, Tech_Ref]
+# --- Format: [Type, Tech_Ref, Constellation, Mag, Size, Common Name, RA, Dec]
 
 
 MESSIER_DATA = {
