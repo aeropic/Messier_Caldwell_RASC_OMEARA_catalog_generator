@@ -1088,8 +1088,31 @@ def generate():
                 html += `<div><strong>Constellation:</strong> ${{obj.info[2]}}</div>`;
                 html += `<div><strong>Magnitude:</strong> ${{obj.info[3]}}</div>`;
                 html += `<div${{c}}><strong>Taille:</strong> ${{s}}</div>`;
-                html += `<div><strong>RA:</strong> <span style="font-weight:bold; color:#c9d1d9;">${{obj.info[6]}}h</span> `;
-                html += `<div><strong>Dec:</strong> <span style="font-weight:bold; color:#c9d1d9;">${{obj.info[7]}}°</span> `;
+                
+                let raDecimal = parseFloat(obj.info[6]);
+
+                let hours = Math.floor(raDecimal);
+                let minutesDecimal = (raDecimal - hours) * 60;
+                let minutes = Math.floor(minutesDecimal);
+                let seconds = Math.round((minutesDecimal - minutes) * 60);
+
+                // Gestion du cas où l'arrondi des secondes pousse les minutes à 60
+                if (seconds === 60) {{
+                    seconds = 0;
+                    minutes += 1;
+                }}
+                if (minutes === 60) {{
+                    minutes = 0;
+                    hours += 1;
+                }}
+
+                // Formatage avec ajout de zéros initiaux si nécessaire (ex: 05m)
+                let hoursStr = hours + 'h';
+                let minutesStr = String(minutes).padStart(2, '0') + 'm';
+                let secondsStr = String(seconds).padStart(2, '0') + 's';
+                
+                html += `<div><strong>RA:</strong> ${{hoursStr}} ${{minutesStr}} ${{secondsStr}}</div>`;
+                html += `<div><strong>Dec:</strong> <span  color:#c9d1d9;">${{obj.info[7]}}°</span> `;
                 html += `<span style="font-size:9px; background:#21262d; color:${{badgeColor}}; padding:1px 4px; border-radius:3px; border:1px solid ${{badgeColor}}; margin-left:5px; vertical-align:middle; font-weight:bold;">${{direction}}</span></div>`;
                 html += `<div><strong>Élévation Max:</strong> ${{obj.h_max}}°</div>`;
                 html += `<hr style="border:0; border-top:1px solid #444; margin:8px 0;">`;
