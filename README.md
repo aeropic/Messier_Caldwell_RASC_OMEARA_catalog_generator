@@ -47,14 +47,42 @@ To avoid being too disapointed when imaging a too small object, the tooltip disp
 
 When preparing some observations sessions, it may be usefull to tag the objects you want to image in priority. This can be done just with a right click on the thumbnail area. Right click will toggle ON/ON a small red heart and open a dialog box where you may want to deposit a small one-line comment. 
 
+<img width="925" height="530" alt="hearts" src="https://github.com/user-attachments/assets/657b395e-63ad-4ba1-a829-60ee41e2219d" />
+
+
 <img width="1122" height="552" alt="cata_comment" src="https://github.com/user-attachments/assets/10b20871-843f-4763-b36f-cb6ac17e1164" />
 
 Once done, the note will appear in tooltip
 <img width="1029" height="681" alt="cata_note" src="https://github.com/user-attachments/assets/f060caad-9947-4c6c-a1c6-cc2f80ee3ebd" />
 
 As the browsers have a cache where is stored persistent data, the list of your favorite objects including the notes is persistent as long as you do not change your browser and you do not empty the cache. But there is a way to permanently store this list inside a TODO.txt file. When clicking on the upper right icon, the file is created and stored into your browser "uploads" diectory. You have to drag and drop this file into the image and script folder to get it recognized at next startup. The file can be manually edited to add/remove hearts and comments (be carefull with the syntax) !
+here is an example:
 
-<img width="925" height="530" alt="hearts" src="https://github.com/user-attachments/assets/657b395e-63ad-4ba1-a829-60ee41e2219d" />
+{
+    "Messier": {
+        "97": "shoot it together with M108",
+        "98": "",
+        "108": "to do with M97"
+    },
+    "Caldwell": {
+        "33": "",
+        "34": "",
+        "68": ""
+    },
+    "RASC": {
+        "95": "",
+        "99a": "",
+        "99b": ""
+    },
+    "O'Meara": {
+        "33": "",
+        "36": "",
+        "1081": "",
+        "1082": "",
+        "1090": "",
+        "1097": ""
+    }
+}
 
 
 you can edit the python file and change this value
