@@ -693,7 +693,7 @@ CATALOGS = {
     "O'Meara": {"prefix": "X", "data": O_MEARA_DATA}
 }
 
-TODO_FILE = "TODO.txt"
+TODO_FILE = "TODO.txt" # format is {"Catalog name": {"IdObjet": "free Comment"}}
 
 
 # --- SCRIPT ---
@@ -1000,7 +1000,6 @@ def generate():
             function filterF(f) {{ currentFamily = f; update(); }}
 
             // Generation of the TODO.txt file in JSON format
-            // format is {"Catalog name": {"IdObjet": "free Comment"}}
             function exportTodo() {{
                 const blob = new Blob([JSON.stringify(localTodo, null, 4)], {{type: 'text/plain'}});
                 const url = window.URL.createObjectURL(blob);
