@@ -4,6 +4,13 @@ This is a python script to build a catalog of your Messier/Caldwell/RASC/O'Meara
 After the Messier, the Caldwell, the RASC catalogs, I needed to simplify all this and make a commun generic one : here it is including O'meara's "hidden treasures" and "secret deep" lists.
 This project is a technical tool for observers. For detailed descriptions, history, and charts of the O'Meara objects, users are highly encouraged to purchase Stephen James O'Meara's books 'Hidden Treasures' and 'The Secret Deep' published by Cambridge University Press.
 
+## important note: 
+The script is written in Python, it then need python to be installed on your machine.
+If you use SIRIL, everything is already operationnal, you can skip next lines
+If you don't use SIRIL : open and edit the .bat file to specify the path to your Python installation. I pointed to SIRIL's path: 
+:: Launch Python on the script located in the same folder: 
+"C:\Program Files\Siril\python\python.exe" "Caldwell_generator.py"
+
 ## usage:
 Simply organize your image files in a folder and add the string "M1, Mxx, C1, Cx or NGCxyz or ICabc" to the image names.
 The script is able to manage files in .jpg, .jpeg, .png, .webp, .tif, .tiff and .lnk (window shortcut to image).
@@ -14,6 +21,8 @@ If there are multiple objects in the same image, name the file with both objects
 <img width="1317" height="846" alt="cata" src="https://github.com/user-attachments/assets/b41ce7cf-49e7-4031-b952-cd606bdb0e34" />
 
 thumbnails are created and stored into a "thumbnails" folder
+
+
 
 ## main functionalities
 
@@ -46,6 +55,7 @@ To avoid being too disapointed when imaging a too small object, the tooltip disp
 
 <img width="375" height="329" alt="smallsize" src="https://github.com/user-attachments/assets/faad9cbd-bcab-4bb8-8c8b-59e4eecda315" />
 
+## tagging objects
 When preparing some observations sessions, it may be usefull to tag the objects you want to image in priority. This can be done just with a right click on the thumbnail area. Right click will toggle ON/ON a small red heart and open a dialog box where you may want to deposit a small one-line comment. 
 
 <img width="925" height="530" alt="hearts" src="https://github.com/user-attachments/assets/657b395e-63ad-4ba1-a829-60ee41e2219d" />
@@ -61,7 +71,7 @@ here is an example:
 
 <img width="364" height="419" alt="cata_edit_todo" src="https://github.com/user-attachments/assets/0a6e51e5-3213-4535-9dcf-d157e777139e" />
 
-
+## editing the python file
 you can also edit the python file and change this value
 -    "LIMIT_SMALL_OBJECT": 120                     # arcseconds ; paint small objects size in orange
 
@@ -70,12 +80,13 @@ you can edit the python file and change those lines according to your location :
 -   "LIMIT_IMPOSSIBLE": 0,                          # degrees : change here if your horizon is masked
 -   "LIMIT_DIFFICILE": 20
 
+## translation in english or other langage
 You can easily translate the script in any langage as all strings are gathered at the top of the script... Meanwhile in french ! For the catalogs of objects, an english version is already available in the file "English_databases.txt", edit the .py file and replace the databases section by the english translation.
 
 
 Let me know if it works for you too and if you see any improvements we could make!
 
-Note: Open and edit the .bat file to specify the path to your Python installation. I pointed to SIRIL's path: :: Launch Python on the script located in the same folder: "C:\Program Files\Siril\python\python.exe" "Caldwell_generator.py"
+
 
 
 
