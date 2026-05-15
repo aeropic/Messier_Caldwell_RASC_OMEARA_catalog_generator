@@ -7,6 +7,7 @@
 # https://www.catchersofthelight.com/astrophotography-hidden-treasures-list.aspx
 # https://app.astrobin.com/u/GaryI?collection=677&i=esls3b#gallery
 #
+#   V4.2 : tooltip labels in LANG dictionnary
 #   V4.1 : season is computed from RA value. RA added in database
 #   V4.0.1 : added fex comments all in english
 #   V4.0 : added selection of todo objects (red heart) and export of TODO.txt
@@ -92,7 +93,15 @@ LANG = {
         "GAL": "Galaxies",
         "CLU": "Amas et divers"                             # "clusters and others"
     },
-    "SEASONS": {"P": "Printemps", "E": "Été", "A": "Automne", "H": "Hiver"}      # {"P": "Spring", "E": "Summer", "A": "Automn", "H": "Winter"}
+    "SEASONS": {"P": "Printemps", "E": "Été", "A": "Automne", "H": "Hiver"},      # {"P": "Spring", "E": "Summer", "A": "Automn", "H": "Winter"},
+    "TOOLTIP_LABELS": {
+        "TYPE": "Type ",                                      # "Type"
+        "SEASON": "Saison ",                                  # "Season"
+        "CONSTELLATION": "Constellation ",                    # "Constellation"
+        "MAGNITUDE": "Magnitude ",                            # "Magnitude"
+        "SIZE": "Taille ",                                     # "Size"
+        "ELEVATION": "Elévation max "                         # "max elevation"
+    }
 }
 
 
@@ -687,11 +696,6 @@ TODO_FILE = "TODO.txt"
 
 # --- SCRIPT ---
 
-import os
-import re
-import json
-from datetime import datetime
-from PIL import Image, ImageOps
 
 def compute_best_season(ra):
     """Calculates the best observation season based on Right Ascension (RA)"""
@@ -1086,11 +1090,11 @@ def generate():
                 const direction = isNorth ? "{LANG['NORTH']}" : "{LANG['SOUTH']}";
                 const badgeColor = isNorth ? "#3498db" : "#f1c40f";
 
-                html += `<div><strong>Type:</strong> ${{obj.info[0]}}</div>`;
-                html += `<div><strong>Saison:</strong> ${{obj.season_computed}}</div>`;
-                html += `<div><strong>Constellation:</strong> ${{obj.info[2]}}</div>`;
-                html += `<div><strong>Magnitude:</strong> ${{obj.info[3]}}</div>`;
-                html += `<div${{c}}><strong>Taille:</strong> ${{s}}</div>`;
+                html += `<div><strong>{LANG["TOOLTIP_LABELS"]["TYPE"]}:</strong> ${{obj.info[0]}}</div>`;
+                html += `<div><strong>{LANG["TOOLTIP_LABELS"]["SEASON"]}:</strong> ${{obj.season_computed}}</div>`;
+                html += `<div><strong>{LANG["TOOLTIP_LABELS"]["CONSTELLATION"]}:</strong> ${{obj.info[2]}}</div>`;
+                html += `<div><strong>{LANG["TOOLTIP_LABELS"]["MAGNITUDE"]}:</strong> ${{obj.info[3]}}</div>`;
+                html += `<div ${{c}}><strong>{LANG["TOOLTIP_LABELS"]["SIZE"]}:</strong> ${{s}}</div>`;
                 
                 let raDecimal = parseFloat(obj.info[6]);
 
@@ -1114,10 +1118,10 @@ def generate():
                 let minutesStr = String(minutes).padStart(2, '0') + 'm';
                 let secondsStr = String(seconds).padStart(2, '0') + 's';
                 
-                html += `<div><strong>RA:</strong> ${{hoursStr}} ${{minutesStr}} ${{secondsStr}}</div>`;
-                html += `<div><strong>Dec:</strong> <span  color:#c9d1d9;">${{obj.info[7]}}°</span> `;
+                html += `<div><strong>RA :</strong> ${{hoursStr}} ${{minutesStr}} ${{secondsStr}}</div>`;
+                html += `<div><strong>Dec :</strong> <span  color:#c9d1d9;">${{obj.info[7]}}°</span> `;
                 html += `<span style="font-size:9px; background:#21262d; color:${{badgeColor}}; padding:1px 4px; border-radius:3px; border:1px solid ${{badgeColor}}; margin-left:5px; vertical-align:middle; font-weight:bold;">${{direction}}</span></div>`;
-                html += `<div><strong>Élévation Max:</strong> ${{obj.h_max}}°</div>`;
+                html += `<div><strong>{LANG["TOOLTIP_LABELS"]["ELEVATION"]}:</strong> ${{obj.h_max}}</div>`;
                 html += `<hr style="border:0; border-top:1px solid #444; margin:8px 0;">`;
                 html += `<div style="font-style:italic; color:#3498db; margin-top:5px;"><strong>${{obj.info[5]}}</strong></div>`;
                 
