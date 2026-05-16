@@ -8,6 +8,7 @@
 # https://app.astrobin.com/u/GaryI?collection=677&i=esls3b#gallery
 #
 #   V5.0 : database restructuration: first field is direct type
+#          internationalization with only one file
 #   V4.4 : hollow heart when no note 
 #   V4.3 : a free comment can be added when loving an object. 
 #          TODO.txt can be edited as well to manually add single line comments
@@ -53,10 +54,10 @@ def install_dependencies():
 install_dependencies()
 from PIL import Image, ImageOps
     
-# --- CONFIGURATION & TRANSLATION ---
+# --- CONFIGURATION  ---
 CONFIG = {
     "SOURCE_DIR": os.getcwd(),
-    "SELECTED_CATALOG": "Messier",                #  selected catalog at startup: possible values : "Messier", "Caldwell", "RASC"
+    "SELECTED_CATALOG": "Messier",                # selected catalog at startup: possible values : "Messier", "Caldwell", "RASC"
     "THUMB_DIR": "thumbnails",                    # name of the thumbnails directory
     "OUTPUT_HTML": "astro_catalog.html",          # name of the HTML page
     "THUMB_SIZE": 105,                            # size of the square thumbnail on the HTML page (max 200x200)
@@ -65,6 +66,12 @@ CONFIG = {
     "LIMIT_DIFFICILE": 20,
     "LIMIT_SMALL_OBJECT": 120                     # arcseconds ; paint small objects size in orange
 }
+
+# -----------------------------------------------
+#  défault database and lang = FR
+# place LANG_database.py in the script directory
+# for english and other langages
+# -----------------------------------------------
 
 LANG = {
     "CATALOG": "mon catalogue",                              # "my catalog"
@@ -685,7 +692,12 @@ O_MEARA_DATA = {
     1109: ["OC", "NGC 7790", "Cassiopée", "8.5", "5'", "Widow's Web", 23.97, 61.21],
 }
 
-
+try:
+    # Si le fichier 'LANG_database.py' existe à côté, on charge ses données
+    from LANG_database import LANG, MESSIER_DATA, CALDWELL_DATA, RASC_DATA, O_MEARA_DATA
+except ImportError:
+    # Si le fichier n'existe pas, Python ignore l'erreur et garde les données FR ci-dessus
+    pass
 
 CATALOGS = {
     "Messier": {"prefix": "M", "data": MESSIER_DATA},          # the prefix is used in the HTML page
