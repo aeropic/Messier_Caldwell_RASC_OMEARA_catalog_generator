@@ -95,6 +95,7 @@ You can easily translate the script in any langage as all strings are gathered i
 
 <img width="946" height="543" alt="cata_EN" src="https://github.com/user-attachments/assets/702b9627-89ba-4004-b558-17dc720d626c" />
 
+Spanish language is ready also. (ES_LANG_database.py) rename the file without "ES_".
 For other languages, just translate the strings into your language, save the file as "LANG_database.py". If you're lazy, ask Gemini AI to do this job for you ...
 (Should you do this, I would appreciate if you could provide me with the translated file)
 
