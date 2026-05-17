@@ -7,6 +7,7 @@
 # https://www.catchersofthelight.com/astrophotography-hidden-treasures-list.aspx
 # https://app.astrobin.com/u/GaryI?collection=677&i=esls3b#gallery
 #
+#   V5.1 : plot of object altitude curve - added visible to night option
 #   V5.0 : database restructuration: first field is direct type
 #          internationalization with only one file
 #   V4.4 : hollow heart when no note 
@@ -43,12 +44,16 @@ from datetime import datetime
 
 # --- DEPENDENCIES AUTO-INSTALL ---
 def install_dependencies():
+    """
+    Checks if required dependencies (specifically Pillow) are installed.
+    If missing, automatically upgrades pip and installs Pillow via subprocess.
+    """
     try:
         importlib.import_module("PIL")
     except ImportError:
         print("Installation des dépendances manquantes...")
         subprocess.check_call([sys.executable, "-m", "pip", "install", "--upgrade", "pip"])
-        subprocess.check_call([sys.executable, "-m", "pip", "install", "Pillow"])
+        subprocess.check_call([sys.executable, "-m", "pip", "install", "--upgrade", "Pillow"])
         importlib.invalidate_caches()
 
 install_dependencies()
@@ -62,9 +67,12 @@ CONFIG = {
     "OUTPUT_HTML": "astro_catalog.html",          # name of the HTML page
     "THUMB_SIZE": 105,                            # size of the square thumbnail on the HTML page (max 200x200)
     "LATITUDE": 43.6,                             # your latitude
+    "LONGITUDE": 1.5,                             # your longitude
+    "ELEVATION": 150,                             # your elevation in meters
     "LIMIT_IMPOSSIBLE": 0,                        # degrees : change here if your horizon is masked
     "LIMIT_DIFFICILE": 20,
-    "LIMIT_SMALL_OBJECT": 120                     # arcseconds ; paint small objects size in orange
+    "LIMIT_SMALL_OBJECT": 120,                    # arcseconds ; paint small objects size in orange
+    "CHART_HEIGHT": 80                            # Height of the graphic area inside the tooltip (in px)
 }
 
 # -----------------------------------------------
@@ -106,7 +114,7 @@ LANG = {
         "GAL": "Galaxies",
         "CLU": "Amas et divers"                              # "clusters and others"
     },
-    "SEASONS": {"P": "Printemps", "E": "Été", "A": "Automne", "H": "Hiver"},      # {"P": "Spring", "E": "Summer", "A": "Automn", "H": "Winter"},
+    "SEASONS": {"P": "Printemps", "E": "Été", "A": "Automne", "H": "Hiver","TN": "Ce soir"},      # {"P": "Spring", "E": "Summer", "A": "Automn", "H": "Winter", "TN": "Tonight"},
     "TOOLTIP_LABELS": {
         "TYPE": "Type ",                                      # "Type"
         "SEASON": "Saison ",                                  # "Season"
@@ -761,10 +769,17 @@ def get_exif_date(path):
     return datetime.fromtimestamp(os.path.getmtime(path)).strftime("%d/%m/%Y %H:%M")
 
 def make_thumbnail(src):
-    """Generate a square thumbnail and convert TIF files for web display"""
+    """
+    CRITICAL ZONE: Dynamic processing of source assets & automated TIF conversions.
+    Browsers cannot natively render astronomical high-fidelity TIF/TIFF master files.
+    When a .tif/tiff file is detected, this block compresses and downscales it into 
+    a 'view_*.jpg' proxy image targeted for standard HTML display. 
+    It also yields the square grid thumbnail for the interface layout.
+    """
     if not os.path.exists(CONFIG["THUMB_DIR"]): os.makedirs(CONFIG["THUMB_DIR"])
     dest = os.path.join(CONFIG["THUMB_DIR"], f"thumb_{src}")
     
+    # Check for TIF/TIFF formats to generate a web-friendly compressed preview proxy
     if src.lower().endswith(('.tif', '.tiff')):
         view_dest = os.path.join(CONFIG["THUMB_DIR"], f"view_{os.path.splitext(src)[0]}.jpg")
         if not os.path.exists(view_dest):
@@ -779,6 +794,7 @@ def make_thumbnail(src):
 
     if os.path.exists(dest): return dest
     
+    # Create the square micro-thumbnail used within the catalog layout grid
     try:
         with Image.open(src) as img:
             img = ImageOps.exif_transpose(img).convert("RGB")
@@ -884,6 +900,8 @@ def generate():
     <html lang="fr">
     <head>
         <meta charset="UTF-8">
+        <script src="https://cdn.jsdelivr.net/npm/astronomy-engine@2.1.19/astronomy.browser.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <style>
             :root {{ --case-size: {CONFIG["THUMB_SIZE"]}px; }}
             body {{ background: #0d1117; color: #c9d1d9; font-family: 'Segoe UI', sans-serif; text-align: center; padding: 20px; overflow-x: hidden; }}
@@ -930,8 +948,11 @@ def generate():
             .img-box {{ width: 100%; aspect-ratio: 1 / 1; display: flex; align-items: center; justify-content: center; background: #000; cursor: pointer; overflow: hidden; position: relative; }}
             .img-box img {{ width: 100%; height: 100%; object-fit: cover; }}
             .empty-info {{ color: #484f58; font-size: 11px; font-weight: bold; text-align: center; padding: 5px; line-height: 1.2; }}
-            .label {{ background: #21262d; padding: 8px 5px; font-weight: bold; font-size: 12px; border-top: 1px solid #30363d; cursor: pointer; transition: 0.2s; }}
-            #tooltip {{ position: fixed; display: none; background: #0d1117; border: 1px solid #3498db; border-radius: 8px; padding: 12px; z-index: 2000; text-align: left; min-width: 220px; box-shadow: 0 8px 24px #000; pointer-events: none; }}
+            .label {{ background: #21262d; padding: 8px 5px; font-weight: bold; font-size: 12px; border-top: 1px solid #30363d; cursor: pointer; transition: 0.2s; user-select: none; }}
+            
+            #tooltip {{ position: fixed; display: none; background: #0d1117; border: 1px solid #3498db; border-radius: 8px; padding: 12px; z-index: 2000; text-align: left; min-width: 320px; box-shadow: 0 8px 24px #000; pointer-events: none; }}
+            #tooltip.frozen {{ border-color: #ff4d4d !important; pointer-events: auto !important; cursor: default; }}
+            
             #overlay {{ display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 9999; justify-content: center; align-items: center; overflow: hidden; }}
             #fullImg {{ position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); cursor: grab; user-select: none; max-width: 95%; max-height: 95%; transition: transform 0.05s linear; }}
             #customPrompt {{ background: #161b22; color: #fff; border: 1px solid #388bfd; border-radius: 8px; padding: 15px; box-shadow: 0 8px 24px #000; max-width: 300px; text-align: center; }}
@@ -939,6 +960,9 @@ def generate():
             #customPrompt label {{ display: block; font-size: 13px; margin-bottom: 10px; color: #c9d1d9; }}
             #customPrompt input {{ background: #0d1117; color: #fff; border: 1px solid #30363d; border-radius: 4px; padding: 6px; width: 90%; margin-bottom: 12px; outline: none; }}
             #customPrompt button {{ background: #21262d; border: 1px solid #388bfd; color: #fff; padding: 6px 15px; border-radius: 4px; cursor: pointer; font-size: 13px; }}
+            
+            .chart-container {{ background: #000000; padding: 5px; position: relative; margin-top: 10px; width: 300px; height: {CONFIG["CHART_HEIGHT"]}px; }}
+            canvas {{ display: block; width: 100% !important; height: 100% !important; }}
         </style>
     </head>
     <body>
@@ -979,6 +1003,10 @@ def generate():
             const prefixes = {json.dumps(prefixes_js)};
             const thumbDir = "{CONFIG['THUMB_DIR']}";
             const userLat = {CONFIG['LATITUDE']}; 
+            const userLon = {CONFIG['LONGITUDE']};
+            const userElv = {CONFIG['ELEVATION']};
+            let globalChartInstance = null;
+            let isTooltipFrozen = false;
             
             // Sync local storage with JSON data on load
             let localTodo = JSON.parse(localStorage.getItem('astro_todo')) || {{}};
@@ -1000,10 +1028,22 @@ def generate():
             let scale = 1, posX = 0, posY = 0, isDragging = false, startX, startY;
             const m = document.getElementById("overlay"), mi = document.getElementById("fullImg"), t = document.getElementById('tooltip');
 
+            // Unfreeze tooltip when user right-clicks on a frozen tooltip box
+            t.addEventListener('contextmenu', (e) => {{
+                if (isTooltipFrozen) {{
+                    e.preventDefault();
+                    unfreezeTooltip();
+                }}
+            }});
+
+            // Filters handling functions triggered by select elements change
             function filterS(s) {{ currentSeason = s; update(); }}
             function filterD(d) {{ currentDir = d; update(); }}
             function filterF(f) {{ currentFamily = f; update(); }}
 
+            /**
+             * Exports the favorite/todo objects list from localStorage as a JSON file named TODO.txt
+             */
             function exportTodo() {{
                 const blob = new Blob([JSON.stringify(localTodo, null, 4)], {{type: 'text/plain'}});
                 const url = window.URL.createObjectURL(blob);
@@ -1012,8 +1052,12 @@ def generate():
                 window.URL.revokeObjectURL(url);
             }}
 
+            /**
+             * Handles adding or removing an object from the favorite/todo list (Right-click on thumbnail image box)
+             */
             function toggleHeart(e, catName, objId) {{
                 e.preventDefault(); 
+                if (isTooltipFrozen) return false;
                 if (!localTodo[catName]) localTodo[catName] = {{}};
                 
                 if (localTodo[catName][objId] !== undefined) {{
@@ -1035,6 +1079,99 @@ def generate():
                 return false;
             }}
 
+            /**
+             * Locks or unlocks the tooltip visibility on right-click over a card label
+             */
+            function freezeTooltip(e, element, obj, currentComment) {{
+                e.preventDefault();
+                if (isTooltipFrozen) {{
+                    unfreezeTooltip();
+                    return false;
+                }}
+                showT(element, obj, currentComment);
+                isTooltipFrozen = true;
+                t.classList.add('frozen');
+                
+                if (globalChartInstance) {{
+                    globalChartInstance.options.plugins.tooltip.enabled = true;
+                    globalChartInstance.update();
+                }}
+                return false;
+            }}
+
+            /**
+             * Completely hides and unlocks the locked tooltip, resetting the active chart instance
+             */
+            function unfreezeTooltip() {{
+                isTooltipFrozen = false;
+                t.classList.remove('frozen');
+                t.style.display = 'none';
+                if (globalChartInstance) {{
+                    globalChartInstance.destroy();
+                    globalChartInstance = null;
+                }}
+            }}
+
+            /**
+             * Computes if an object is currently visible tonight during astronomical night hours
+             */
+            function computeIsVisibleToday(raTarget, decTarget) {{
+                const now = new Date();
+                const midnightLocal = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0);
+                const latRad = userLat * Math.PI / 180;
+                const decRad = decTarget * Math.PI / 180;
+                const DEC_SUN_RAD = 19.3 * Math.PI / 180; 
+
+                let altitudesSoleil = [];
+                let idxCoucher = -1;
+                let idxLever = -1;
+
+                for (let i = -72; i < 72; i++) {{
+                    const hr = i / 6;
+                    const datePoint = new Date(midnightLocal.getTime() + hr * 60 * 60 * 1000);
+                    try {{
+                        const astroTimePoint = Astronomy.MakeTime(datePoint);
+                        const lstHours = Astronomy.SiderealTime(astroTimePoint) + userLon / 15;
+                        const raSunHours = 3.6; 
+                        const hourAngleRad = (lstHours - raSunHours) * 15 * Math.PI / 180;
+                        const sinAlt = Math.sin(latRad) * Math.sin(DEC_SUN_RAD) + Math.cos(latRad) * Math.cos(DEC_SUN_RAD) * Math.cos(hourAngleRad);
+                        altitudesSoleil.push(Math.asin(sinAlt) * 180 / Math.PI);
+                    }} catch (e) {{
+                        altitudesSoleil.push(-20);
+                    }}
+                }}
+
+                for (let k = 1; k < altitudesSoleil.length; k++) {{
+                    if (k < 72 && altitudesSoleil[k-1] >= 0 && altitudesSoleil[k] < 0) idxCoucher = k;
+                    if (k >= 72 && altitudesSoleil[k-1] <= 0 && altitudesSoleil[k] > 0) idxLever = k;
+                }}
+
+                let altitudes = [];
+                for (let i = -72; i < 72; i++) {{
+                    const hr = i / 6;
+                    const datePoint = new Date(midnightLocal.getTime() + hr * 60 * 60 * 1000);
+                    try {{
+                        const astroTimePoint = Astronomy.MakeTime(datePoint);
+                        const lstHours = Astronomy.SiderealTime(astroTimePoint) + userLon / 15;
+                        const hourAngleRad = (lstHours - raTarget) * 15 * Math.PI / 180;
+                        const sinAlt = Math.sin(latRad) * Math.sin(decRad) + Math.cos(latRad) * Math.cos(decRad) * Math.cos(hourAngleRad);
+                        altitudes.push(Math.asin(sinAlt) * 180 / Math.PI);
+                    }} catch (e) {{ altitudes.push(0); }}
+                }}
+
+                if (idxCoucher !== -1 && idxLever !== -1) {{
+                    for (let idx = idxCoucher; idx <= idxLever; idx++) {{
+                        if (altitudes[idx] > 0) return true;
+                    }}
+                }} else {{
+                    if (altitudes.some(alt => alt > 0)) return true;
+                }}
+                return false;
+            }}
+
+            /**
+             * Rebuilds and filters the grid view based on the current selection of catalog, family, season, and direction
+             */
             function update() {{
                 const cat = document.getElementById('catSelect').value;
                 const g = document.getElementById('grid'); 
@@ -1045,22 +1182,29 @@ def generate():
                 data[cat].forEach(obj => {{
                     if (!obj.info || obj.info.length < 7) return;
                     const objType = obj.info[0].trim();
-                    const rawTypeCode = obj.type_code.trim(); // contains clean type code (ex: "SNR")
+                    const rawTypeCode = obj.type_code.trim();
                     const objSeason = obj.season_computed; 
+                    const raVal = parseFloat(obj.info[6]);
                     const declin = parseFloat(obj.info[7]);
                     const objDir = declin > userLat ? "{LANG['NORTH']}" : "{LANG['SOUTH']}";
                     
                     if (currentFamily !== 'Tous' && !(FAMILIES[currentFamily] && FAMILIES[currentFamily].includes(rawTypeCode))) return;
-                    if (currentSeason !== 'Tous' && objSeason !== currentSeason) return;
+                    
+                    if (currentSeason !== 'Tous') {{
+                        if (currentSeason === "{LANG['SEASONS']['TN']}") {{
+                            if (!computeIsVisibleToday(raVal, declin)) return;
+                        }} else if (objSeason !== currentSeason) {{
+                            return;
+                        }}
+                    }}
                     if (currentDir !== 'Tous' && objDir !== currentDir) return;
                     
                     const d = document.createElement('div'); d.className = 'case';
                     const isTodo = localTodo[cat] && localTodo[cat][obj.id] !== undefined;
                     const currentComment = isTodo ? localTodo[cat][obj.id] : "";
                     
-                    d.onmousemove = (e) => showT(e, obj, currentComment);
-                    d.onmouseleave = () => t.style.display='none';
-                    d.oncontextmenu = (e) => toggleHeart(e, cat, obj.id);
+                    d.onmouseenter = (e) => {{ if (!isTooltipFrozen) showT(d, obj, currentComment); }};
+                    d.onmouseleave = () => {{ if (!isTooltipFrozen) {{ t.style.display='none'; if(globalChartInstance) {{ globalChartInstance.destroy(); globalChartInstance = null; }} }} }}
                     
                     const heartClass = currentComment ? 'has-comment' : 'no-comment';
                     const heart = isTodo ? `<div class="todo-heart ${{heartClass}}">❤</div>` : '';
@@ -1068,6 +1212,11 @@ def generate():
                     let displaySeason = currentSeason === 'Tous' ? `<br>(${{objSeason}})` : '';
                     let content = obj.thumb ? `<img src="${{obj.thumb}}">` : `<div class="empty-info">${{objType}}${{displaySeason}}</div>`;
                     
+                    /* CRITICAL ZONE: Dynamic full-resolution preview assignment.
+                       If the source image was a high-fidelity TIFF format, we intercept the link 
+                       and map the card interaction event to open the generated 'view_*.jpg' proxy 
+                       instead of trying to open the unsupported raw .tif binary directly.
+                    */
                     let clickImg = obj.img;
                     if (obj.img && (obj.img.toLowerCase().endsWith('.tif') || obj.img.toLowerCase().endsWith('.tiff'))) {{
                         let baseName = obj.img.substring(0, obj.img.lastIndexOf('.'));
@@ -1075,7 +1224,13 @@ def generate():
                         clickImg = thumbDir + "/view_" + baseName + ".jpg";
                     }}
                     
-                    // Telescopius Link Generation
+                    /* CRITICAL ZONE: Heterogeneous Dynamic URL Generation For Telescopius routing.
+                       Each deep-sky index handles naming profiles uniquely based on its survey ecosystem:
+                       1. Messier & Caldwell: Directly match uniform sequential tracking codes ('m-X', 'c-X').
+                       2. RASC & O'Meara: Mixed cross-referenced deep-sky tables. The script parses the target's 
+                          technical designation field using regular expressions to extract standard catalog 
+                          sub-identifiers (NGC, IC, Sh2, Barnard, vdB) and formats them into accurate URLs.
+                    */
                     let tUrl = "https://telescopius.com/deep-sky-objects/";
                     if (obj.prefix === prefixes.Messier) tUrl += "m-" + obj.id;
                     else if (obj.prefix === prefixes.Caldwell) tUrl += "c-" + obj.id;
@@ -1093,27 +1248,46 @@ def generate():
                     const labelText = obj.tech_ref ? `${{obj.prefix}}${{obj.id}} - ${{obj.tech_ref}}` : `${{obj.prefix}}${{obj.id}}`;
                     const imgAction = obj.img ? `openM('${{clickImg}}')` : `window.open('${{tUrl}}', '_blank')`;
 
-                    d.innerHTML = `<div class="img-box" onclick="${{imgAction}}">
-                                        ${{heart}}
-                                        ${{content}}
-                                    </div>
-                                    <div class="label" style="color:${{obj.label_color}}" onclick="window.open('${{tUrl}}', '_blank')">${{labelText}}</div>`;
+                    const imgBoxEl = document.createElement('div');
+                    imgBoxEl.className = "img-box";
+                    imgBoxEl.onclick = () => eval(imgAction);
+                    imgBoxEl.oncontextmenu = (e) => toggleHeart(e, cat, obj.id);
+                    imgBoxEl.innerHTML = heart + content;
+
+                    const labelEl = document.createElement('div');
+                    labelEl.className = "label";
+                    labelEl.style.color = obj.label_color;
+                    labelEl.onclick = () => window.open(tUrl, '_blank');
+                    labelEl.oncontextmenu = (e) => freezeTooltip(e, d, obj, currentComment);
+                    labelEl.innerText = labelText;
+
+                    d.appendChild(imgBoxEl);
+                    d.appendChild(labelEl);
                     g.appendChild(d);
                 }});
             }}
 
 
+            // Full screen overlay image viewer control functions
             function openM(s) {{ if(!s) return; scale = 1; posX = 0; posY = 0; mi.src = s; m.style.display = "flex"; updateTransform(); }}
             function closeM() {{ m.style.display = "none"; }}
             function updateTransform() {{ mi.style.transform = `translate(calc(-50% + ${{posX}}px), calc(-50% + ${{posY}}px)) scale(${{scale}})`; }}
             
-            // Image viewer pan & zoom
+            // Image viewer pan & zoom mouse event listeners
             m.addEventListener('wheel', e => {{ e.preventDefault(); scale = Math.min(Math.max(0.5, scale * (e.deltaY > 0 ? 0.9 : 1.1)), 10); updateTransform(); }}, {{passive: false}});
             mi.addEventListener('mousedown', e => {{ isDragging = true; startX = e.clientX - posX; startY = e.clientY - posY; e.preventDefault(); }});
             window.addEventListener('mousemove', e => {{ if (isDragging) {{ posX = e.clientX - startX; posY = e.clientY - startY; updateTransform(); }} }});
             window.addEventListener('mouseup', () => isDragging = false);
 
-            function showT(e, obj, comment) {{
+            /**
+             * Renders the details info box (tooltip) with object metadata and altitude profile chart via Chart.js
+             */
+            function showT(element, obj, comment) {{
+                if (globalChartInstance) {{
+                    globalChartInstance.destroy();
+                    globalChartInstance = null;
+                }}
+
                 let html = "";
                 if (obj.img) {{
                     html += `<div style="color:#4a9eff; font-weight:bold; font-size:12px; margin-bottom:2px;">${{obj.img}}</div>`;
@@ -1163,12 +1337,232 @@ def generate():
                 html += `<hr style="border:0; border-top:1px solid #444; margin:8px 0;">`;
                 html += `<div style="font-style:italic; color:#3498db; margin-top:5px;"><strong>${{obj.info[5]}}</strong></div>`;
                 
+                html += `<div class="chart-container"><canvas id="astroChart"></canvas></div>`;
+
                 t.innerHTML = html; t.style.display = 'block';
-                let x = e.clientX + 15, y = e.clientY + 15;
-                if (x + 250 > window.innerWidth) x = e.clientX - t.offsetWidth - 15;
-                if (y + t.offsetHeight > window.innerHeight) y = e.clientY - t.offsetHeight - 15;
-                t.style.left = x + 'px'; t.style.top = y + 'px';
+
+                /* CRITICAL ZONE: Viewport-Relative Tooltip Anchoring & Collision Strategy.
+                   The styling layout applies 'position: fixed' to avoid viewport breakout bugs 
+                   when rendering massive databases containing large scroll containers.
+                   The layout reads bounding viewport box geometries using 'getBoundingClientRect()'.
+                   By checking the card midpoint against the global center of the viewport window, 
+                   it automatically shifts the anchor offsets to avoid boundary clippings.
+                */
+                const rect = element.getBoundingClientRect();
+                const windowWidth = window.innerWidth;
+                const windowHeight = window.innerHeight;
+                const midX = windowWidth / 2;
+                const midY = windowHeight / 2;
+                const cardCenterX = rect.left + rect.width / 2;
+                const cardCenterY = rect.top + rect.height / 2;
+
+                let leftPos = 0, topPos = 0;
+
+                if (cardCenterY < midY) {{
+                    topPos = rect.bottom;
+                    if (cardCenterX < midX) {{
+                        leftPos = rect.right;
+                    }} else {{
+                        leftPos = rect.left - t.offsetWidth;
+                    }}
+                }} else {{
+                    topPos = rect.top - t.offsetHeight;
+                    if (cardCenterX < midX) {{
+                        leftPos = rect.right;
+                    }} else {{
+                        leftPos = rect.left - t.offsetWidth;
+                    }}
+                }}
+
+                t.style.left = leftPos + 'px'; t.style.top = topPos + 'px';
+
+                try {{
+                    const RA_TARGET = raDecimal;
+                    const DEC_TARGET = declin;
+                    const ASTRE_NOM = (obj.prefix + obj.id);
+                    const DECALAGE_HEURES = 1.5;
+
+                    const maintenant = new Date();
+                    const minuitLocal = new Date(maintenant.getFullYear(), maintenant.getMonth(), maintenant.getDate(), 0, 0, 0);
+
+                    const heuresRelatives = [];
+                    const altitudes = [];
+                    const labelsX = [];
+                    const altitudesSoleil = [];
+
+                    let maxAlt = -90;
+                    let idxMax = 0;
+                    let nowIndex = -1;
+
+                    const latRad = userLat * Math.PI / 180;
+                    const decRad = DEC_TARGET * Math.PI / 180;
+                    const DEC_SUN_RAD = 19.3 * Math.PI / 180;
+
+                    let idxCoucher = -1;
+                    let idxLever = -1;
+
+                    // Compute sun altitudes for the whole 24h window
+                    for (let i = -72; i < 72; i++) {{
+                        const hr = i / 6;
+                        const datePoint = new Date(minuitLocal.getTime() + hr * 60 * 60 * 1000);
+                        try {{
+                            const astroTimePoint = Astronomy.MakeTime(datePoint);
+                            const lstHours = Astronomy.SiderealTime(astroTimePoint) + userLon / 15;
+                            const raSunHours = 3.6;
+                            const hourAngleRad = (lstHours - raSunHours) * 15 * Math.PI / 180;
+                            const sinAlt = Math.sin(latRad) * Math.sin(DEC_SUN_RAD) + Math.cos(latRad) * Math.cos(DEC_SUN_RAD) * Math.cos(hourAngleRad);
+                            altitudesSoleil.push(Math.asin(sinAlt) * 180 / Math.PI);
+                        }} catch (err) {{
+                            altitudesSoleil.push(-20);
+                        }}
+                    }}
+
+                    // Detect sunset and sunrise index points
+                    for (let k = 1; k < altitudesSoleil.length; k++) {{
+                        if (k < 72 && altitudesSoleil[k-1] >= 0 && altitudesSoleil[k] < 0) idxCoucher = k;
+                        if (k >= 72 && altitudesSoleil[k-1] <= 0 && altitudesSoleil[k] > 0) idxLever = k;
+                    }}
+
+                    let xMinIndex = 0;
+                    let xMaxIndex = altitudesSoleil.length - 1;
+                    const PAS_PAR_HEURE = 6;
+                    const pasDecalage = DECALAGE_HEURES * PAS_PAR_HEURE;
+
+                    if (idxCoucher !== -1 && idxLever !== -1) {{
+                        xMinIndex = Math.max(0, idxCoucher - pasDecalage);
+                        xMaxIndex = Math.min(altitudesSoleil.length - 1, idxLever + pasDecalage);
+                    }} else {{
+                        xMinIndex = 72 - (12 * PAS_PAR_HEURE);
+                        xMaxIndex = 72 + (12 * PAS_PAR_HEURE) - 1;
+                    }}
+
+                    // Calculate targeted object altitude coordinates inside the active chart limits
+                    for (let i = -72; i < 72; i++) {{
+                        const hr = i / 6;
+                        heuresRelatives.push(hr);
+                        const datePoint = new Date(minuitLocal.getTime() + hr * 60 * 60 * 1000);
+                        labelsX.push(`${{datePoint.getHours()}}h${{datePoint.getMinutes() === 0 ? '' : datePoint.getMinutes()}}`);
+                        
+                        if (nowIndex === -1 && datePoint >= maintenant) nowIndex = heuresRelatives.length - 1;
+
+                        try {{
+                            const astroTimePoint = Astronomy.MakeTime(datePoint);
+                            const lstHours = Astronomy.SiderealTime(astroTimePoint) + userLon / 15;
+                            const hourAngleRad = (lstHours - RA_TARGET) * 15 * Math.PI / 180;
+                            const sinAlt = Math.sin(latRad) * Math.sin(decRad) + Math.cos(latRad) * Math.cos(decRad) * Math.cos(hourAngleRad);
+                            let alt = Math.asin(sinAlt) * 180 / Math.PI;
+                            altitudes.push(alt);
+                            if (alt > maxAlt) {{ maxAlt = alt; idxMax = heuresRelatives.length - 1; }}
+                        }} catch (err) {{ altitudes.push(0); }}
+                    }}
+
+                    // Custom Chart.js layout drawing plugin (Sky background color shifts and vertical marker lines)
+                    const backgroundPlugin = {{
+                        id: 'customBackgroundAndLines',
+                        beforeDraw: (chart) => {{
+                            const {{ctx, chartArea: {{top, bottom, left, right}}, scales: {{x, y}}}} = chart;
+                            const gradient = ctx.createLinearGradient(left, 0, right, 0);
+                            const xMinVisible = chart.scales.x.min;
+                            const xMaxVisible = chart.scales.x.max;
+                            const totalVisible = xMaxVisible - xMinVisible;
+
+                            for (let index = xMinVisible; index <= xMaxVisible; index++) {{
+                                let ratio = (index - xMinVisible) / totalVisible;
+                                let altSoleil = altitudesSoleil[index];
+                                let color = "#000000";
+                                if (altSoleil > 0) color = "#2a528a";
+                                else if (altSoleil > -6) color = "#1a3360";
+                                else if (altSoleil > -12) color = "#0e1c3a";
+                                else if (altSoleil > -18) color = "#060a1e";
+                                gradient.addColorStop(Math.max(0, Math.min(1, ratio)), color);
+                            }}
+
+                            ctx.save();
+                            ctx.fillStyle = gradient;
+                            ctx.fillRect(left, top, right - left, bottom - top);
+
+                            ctx.lineWidth = 1;
+                            ctx.setLineDash([5, 5]);
+                            ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+                            ctx.beginPath(); ctx.moveTo(left, y.getPixelForValue(0)); ctx.lineTo(right, y.getPixelForValue(0)); ctx.stroke();
+                            ctx.strokeStyle = 'rgba(0, 255, 0, 0.3)';
+                            ctx.beginPath(); ctx.moveTo(left, y.getPixelForValue(30)); ctx.lineTo(right, y.getPixelForValue(30)); ctx.stroke();
+
+                            const xMaxPix = x.getPixelForValue(idxMax);
+                            if (idxMax >= xMinVisible && idxMax <= xMaxVisible) {{
+                                ctx.strokeStyle = 'rgba(255, 255, 255, 0.4)';
+                                ctx.lineWidth = 1; ctx.setLineDash([2, 4]);
+                                ctx.beginPath(); ctx.moveTo(xMaxPix, top); ctx.lineTo(xMaxPix, bottom); ctx.stroke();
+                            }}
+
+                            if (nowIndex !== -1 && nowIndex >= xMinVisible && nowIndex <= xMaxVisible) {{
+                                const xNowPix = x.getPixelForValue(nowIndex);
+                                ctx.strokeStyle = 'rgba(0, 255, 0, 0.6)';
+                                ctx.lineWidth = 1.5; ctx.setLineDash([4, 4]);
+                                ctx.beginPath(); ctx.moveTo(xNowPix, top); ctx.lineTo(xNowPix, bottom); ctx.stroke();
+                                ctx.fillStyle = 'rgba(0, 255, 0, 0.8)'; ctx.font = 'bold 10px sans-serif';
+                                ctx.save(); ctx.translate(xNowPix - 4, top + 10); ctx.rotate(-Math.PI / 2); ctx.fillText('now', 0, 0); ctx.restore();
+                            }}
+                            ctx.restore();
+                        }}
+                    }};
+
+                    const canvasCtx = document.getElementById('astroChart').getContext('2d');
+                    globalChartInstance = new Chart(canvasCtx, {{
+                        type: 'line',
+                        data: {{
+                            labels: labelsX,
+                            datasets: [{{
+                                label: 'Altitude',
+                                data: altitudes,
+                                borderColor: isNorth ? '#3498db' : '#f1c40f',
+                                borderWidth: 3,
+                                pointRadius: (context) => context.dataIndex === idxMax ? 6 : 0,
+                                pointBackgroundColor: (context) => context.dataIndex === idxMax ? 'white' : 'transparent',
+                                tension: 0.25
+                            }}]
+                        }},
+                        plugins: [backgroundPlugin],
+                        options: {{
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            interaction: {{ mode: 'nearest', axis: 'x', intersect: false }},
+                            plugins: {{
+                                legend: {{ display: false }},
+                                title: {{ display: false }}, 
+                                tooltip: {{ 
+                                    enabled: isTooltipFrozen,
+                                    displayColors: false,
+                                    callbacks: {{
+                                        title: function() {{ return null; }},
+                                        beforeLabel: function() {{ return null; }},
+                                        label: function(context) {{
+                                            return `${{context.label}} ${{context.parsed.y.toFixed(0)}}°`;
+                                        }}
+                                    }}
+                                }}
+                            }},
+                            scales: {{
+                                x: {{
+                                    type: 'category',
+                                    min: xMinIndex,
+                                    max: xMaxIndex,
+                                    grid: {{ display: false }},
+                                    ticks: {{ display: false }}, 
+                                    border: {{ color: '#444444' }}
+                                }},
+                                y: {{
+                                    min: 0,
+                                    max: maxAlt > 0 ? Math.ceil(maxAlt + 15) : 90,
+                                    ticks: {{ color: '#888888', font: {{ size: 9 }}, callback: (v) => Math.round(v) + '°' }}
+                                }}
+                            }}
+                        }}
+                    }});
+                }} catch (err) {{ console.error(err); }}
             }}
+            
+            // Initialization update trigger on page startup
             update();
         </script>
     </body>
