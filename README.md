@@ -92,13 +92,13 @@ Should you want to get more information on the times and altitude values, just m
 
 <img width="531" height="511" alt="cata_rightclick" src="https://github.com/user-attachments/assets/6083c6b9-5977-41ae-8609-abd9a06cf8d6" />
 
-The tooltip position will be frozen, the frame is painted in red. Now move the mouse inside the curve area and you get time/alt displayed. 
+The tooltip position will be frozen, the frame is painted in red. Now move the mouse inside the curve area and you get local-time/alt displayed. 
 
 <img width="365" height="345" alt="cata_tooltip2" src="https://github.com/user-attachments/assets/48175d2e-0960-4235-a4c0-8f111296c269" />
 
 To exit, right click anywhere in the tooltip.
 
-From V5.1 you can also filter the objects to display only the to night visible objects (according to you latitude, timezone and horizon line)
+From V5.1 you can also filter the objects to display only the tonight visible objects (according to your latitude, timezone and horizon line)
 
 <img width="620" height="312" alt="tonight" src="https://github.com/user-attachments/assets/f2ec1dd3-b8d3-43bb-bb2f-14e2d4a7b438" />
 
