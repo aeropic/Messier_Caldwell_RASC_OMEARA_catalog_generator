@@ -81,6 +81,27 @@ here is an example:
 
 <img width="364" height="419" alt="cata_edit_todo" src="https://github.com/user-attachments/assets/0a6e51e5-3213-4535-9dcf-d157e777139e" />
 
+## smart Tooltip and  visible objects of the day
+
+Since version V5.1, in the tooltip there is a plot of object altitude curve for the coming night. The curve is painted in yellow for South objects and blue for North ones.
+
+<img width="559" height="556" alt="cata_tooltip_curve" src="https://github.com/user-attachments/assets/ee37bd8d-25b6-4c2e-8270-2956f4848770" />
+
+Should you want to get more information on the times and altitude values, just move the mouse on the name area and right click. 
+
+<img width="531" height="511" alt="cata_rightclick" src="https://github.com/user-attachments/assets/6083c6b9-5977-41ae-8609-abd9a06cf8d6" />
+
+The tooltip position will be frozen, the frame is painted in red. Now move the mouse inside the curve area and you get time/alt displayed. 
+
+<img width="365" height="345" alt="cata_tooltip2" src="https://github.com/user-attachments/assets/48175d2e-0960-4235-a4c0-8f111296c269" />
+
+To exit, right click anywhere in the tooltip.
+
+From V5.1 you can also filter the objects to display only the to night visible objects (according to you latitude, timezone and horizon line)
+
+<img width="620" height="312" alt="tonight" src="https://github.com/user-attachments/assets/f2ec1dd3-b8d3-43bb-bb2f-14e2d4a7b438" />
+
+
 ## editing the python file
 you can also edit the python file and change this value
 -    "LIMIT_SMALL_OBJECT": 120                     # arcseconds ; paint small objects size in orange
