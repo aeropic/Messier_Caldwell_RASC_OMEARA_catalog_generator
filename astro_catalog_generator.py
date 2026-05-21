@@ -7,6 +7,7 @@
 # https://www.catchersofthelight.com/astrophotography-hidden-treasures-list.aspx
 # https://app.astrobin.com/u/GaryI?collection=677&i=esls3b#gallery
 #
+#   V5.2 : fixed visible to night option
 #   V5.1 : plot of object altitude curve - added visible to night option
 #   V5.0 : database restructuration: first field is direct type
 #          internationalization with only one file
@@ -1112,63 +1113,84 @@ def generate():
                 }}
             }}
 
-            /**
-             * Computes if an object is currently visible tonight during astronomical night hours
+             /**
+             * Computes if an object is currently visible tonight during astronomical night hours.
+             * Strictly replicates the graph's rendering logic.
              */
             function computeIsVisibleToday(raTarget, decTarget) {{
-                const now = new Date();
-                const midnightLocal = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0);
-                const latRad = userLat * Math.PI / 180;
-                const decRad = decTarget * Math.PI / 180;
-                const DEC_SUN_RAD = 19.3 * Math.PI / 180; 
+                try {{
+                    const userLat = parseFloat("{CONFIG["LATITUDE"]}");
+                    const userLon = parseFloat("{CONFIG["LONGITUDE"]}");
+                    
+                    const latRad = userLat * Math.PI / 180;
+                    const decRad = decTarget * Math.PI / 180;
 
-                let altitudesSoleil = [];
-                let idxCoucher = -1;
-                let idxLever = -1;
+                    // Recreate the graph's time base (around local midnight)
+                    const now = new Date();
+                    const midnightLocal = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0);
 
-                for (let i = -72; i < 72; i++) {{
-                    const hr = i / 6;
-                    const datePoint = new Date(midnightLocal.getTime() + hr * 60 * 60 * 1000);
-                    try {{
-                        const astroTimePoint = Astronomy.MakeTime(datePoint);
-                        const lstHours = Astronomy.SiderealTime(astroTimePoint) + userLon / 15;
-                        const raSunHours = 3.6; 
-                        const hourAngleRad = (lstHours - raSunHours) * 15 * Math.PI / 180;
-                        const sinAlt = Math.sin(latRad) * Math.sin(DEC_SUN_RAD) + Math.cos(latRad) * Math.cos(DEC_SUN_RAD) * Math.cos(hourAngleRad);
-                        altitudesSoleil.push(Math.asin(sinAlt) * 180 / Math.PI);
-                    }} catch (e) {{
-                        altitudesSoleil.push(-20);
-                    }}
-                }}
+                    let indexCoucherAstro = null;
+                    let indexLeverAstro = null;
 
-                for (let k = 1; k < altitudesSoleil.length; k++) {{
-                    if (k < 72 && altitudesSoleil[k-1] >= 0 && altitudesSoleil[k] < 0) idxCoucher = k;
-                    if (k >= 72 && altitudesSoleil[k-1] <= 0 && altitudesSoleil[k] > 0) idxLever = k;
-                }}
+                    let altitudesSoleil = [];
+                    let altitudesObjet = [];
 
-                let altitudes = [];
-                for (let i = -72; i < 72; i++) {{
-                    const hr = i / 6;
-                    const datePoint = new Date(midnightLocal.getTime() + hr * 60 * 60 * 1000);
-                    try {{
-                        const astroTimePoint = Astronomy.MakeTime(datePoint);
-                        const lstHours = Astronomy.SiderealTime(astroTimePoint) + userLon / 15;
+                    // --- 1. COMPUTE BOTH CURVES (SUN AND OBJECT) ON THE SAME INDICES ---
+                    for (let i = -72; i < 72; i++) {{
+                        const hr = i / 6;
+                        const datePoint = new Date(midnightLocal.getTime() + hr * 60 * 60 * 1000);
+                        
+                        // Local Sidereal Time (LST) calculation identical to the graph
+                        const j2000 = (datePoint.getTime() / 86400000) - 10957.5;
+                        const lstHours = (18.697374558 + 24.06570982441908 * j2000 + userLon / 15) % 24;
+
+                        // A. Target altitude
                         const hourAngleRad = (lstHours - raTarget) * 15 * Math.PI / 180;
-                        const sinAlt = Math.sin(latRad) * Math.sin(decRad) + Math.cos(latRad) * Math.cos(decRad) * Math.cos(hourAngleRad);
-                        altitudes.push(Math.asin(sinAlt) * 180 / Math.PI);
-                    }} catch (e) {{ altitudes.push(0); }}
-                }}
+                        const sinAltTarget = Math.sin(latRad) * Math.sin(decRad) + Math.cos(latRad) * Math.cos(decRad) * Math.cos(hourAngleRad);
+                        const altTargetDeg = Math.asin(sinAltTarget) * 180 / Math.PI;
+                        altitudesObjet.push(altTargetDeg);
 
-                if (idxCoucher !== -1 && idxLever !== -1) {{
-                    for (let idx = idxCoucher; idx <= idxLever; idx++) {{
-                        if (altitudes[idx] > 0) return true;
+                        // B. Sun altitude (reproducing the graph's formula)
+                        const sunRA = (typeof raSunHours !== 'undefined') ? raSunHours : 3.6; 
+                        const sunDec = (typeof DEC_SUN_RAD !== 'undefined') ? DEC_SUN_RAD : (19.3 * Math.PI / 180);
+                        
+                        const sunHourAngleRad = (lstHours - sunRA) * 15 * Math.PI / 180;
+                        const sinAltSun = Math.sin(latRad) * Math.sin(sunDec) + Math.cos(latRad) * Math.cos(sunDec) * Math.cos(sunHourAngleRad);
+                        const altSunDeg = Math.asin(sinAltSun) * 180 / Math.PI;
+                        altitudesSoleil.push(altSunDeg);
                     }}
-                }} else {{
-                    if (altitudes.some(alt => alt > 0)) return true;
-                }}
-                return false;
-            }}
 
+                    // --- 2. FIND NIGHT BOUNDARIES (ASTRO TWILIGHT / NIGHT BELOW -12°) ---
+                    // Scan chronologically to find when the sun sets and rises below the threshold
+                    for (let idx = 0; idx < altitudesSoleil.length; idx++) {{
+                        // Threshold set to -12° (start of astronomical twilight / night)
+                        if (altitudesSoleil[idx] <= -12) {{
+                            if (indexCoucherAstro === null) {{
+                                indexCoucherAstro = idx; // First point under the threshold
+                            }}
+                            indexLeverAstro = idx; // Last point under the threshold (updated at each step)
+                        }}
+                    }}
+
+                    // If the sun never drops below -12° tonight (no astronomical window)
+                    if (indexCoucherAstro === null || indexLeverAstro === null) {{
+                        return false;
+                    }}
+
+                    // --- 3. CHECK TARGET ALTITUDE BETWEEN THESE TWO BOUNDARIES ---
+                    for (let idx = indexCoucherAstro; idx <= indexLeverAstro; idx++) {{
+                        if (altitudesObjet[idx] > 0) {{
+                            return true; // Match found! The object is > 0° during the astro window
+                        }}
+                    }}
+
+                    return false;
+
+                }} catch (err) {{
+                    return true; 
+                }}
+            }}
+            
             /**
              * Rebuilds and filters the grid view based on the current selection of catalog, family, season, and direction
              */
